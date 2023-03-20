@@ -22,6 +22,7 @@ message_router.get("/", async (req, res) => {
 });
 
 message_router.delete("/:id", async (req, res) => {
+	// console.log(req.params.id)
 	await Message.deleteOne({ _id: req.params.id });
 	const message = "Message deleted successfully";
 	console.log(message);

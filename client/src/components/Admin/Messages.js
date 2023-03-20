@@ -48,7 +48,7 @@ const Messages = (props) => {
 							<td className="th-m">
 								{message.message_details.message}
 							</td>
-							<th className="th-sd">
+							{/* <th className="th-sd">
 								<a
 									href={`https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=${message.useremail}`}
 									target="__blank"
@@ -64,7 +64,7 @@ const Messages = (props) => {
 										</button>
 									</center>
 								</a>
-							</th>
+							</th> */}
 						</tr>
 					))}
 					{/* <th className="th-m">hit@gmail.com</th>

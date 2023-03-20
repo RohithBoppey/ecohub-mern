@@ -19,7 +19,8 @@ import ElectricProductsPage from "./pages/ElectricProducts/ElectricProductsPage"
 import ShowMainData from "./pages/Admin/ShowMainData";
 import ShowAllMessages from "./pages/Admin/ShowAllMessages";
 import UserCart from "./pages/Cart/UserCart";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import ForgotPassword from "./pages/Forgot Password/ForgotPassword";
 
 /* 
 	This is the main file.
@@ -41,7 +42,6 @@ function App() {
 	const [allProducts, setAllProducts] = useState([]);
 
 	const dispatch = useDispatch();
-	const userDet = useSelector((state) => state.userDet);
 
 	/* 
 		This navigate helps to navigate between pages while retaining states.
@@ -144,7 +144,7 @@ function App() {
 			// Storing entered userDetails in state and also localStore
 			setUserDetails(details);
 			dispatch({ type: "login", userDetails: details });
-			const emailToSave = details.email
+			const emailToSave = details.email;
 			console.log(emailToSave);
 			localStorage.setItem("ecohub-email", emailToSave);
 		} else {
@@ -156,7 +156,7 @@ function App() {
 			alert(
 				"You have registered using this email, please login through that!"
 			);
-			navigate('/login')
+			navigate("/login");
 		}
 		navigate("/");
 	};
@@ -185,45 +185,45 @@ function App() {
 		4. If no user, nothing is sent and redirected to Register. 
 	*/
 
-	const isLoggedIn = async () => {
-		const useremail = localStorage.getItem("ecohub-email");
-		const adminLogin = localStorage.getItem("ecohub-admin");
-
-		if (useremail !== null && useremail !== undefined) {
-			// console.log(useremail);
-			const allUsers = await fetch("http://localhost:5000/users");
-			const allUsersJson = await allUsers.json();
-			const requiredUser = allUsersJson.filter(
-				(user) => user.email === useremail
-			);
-			if (requiredUser.length !== 0) {
-				setUserDetails(requiredUser[0]);
-				dispatch({ type: "login", userDetails: requiredUser[0] });
-			}
-		}
-
-		if (adminLogin !== null && adminLogin !== undefined) {
-			// console.log(useremail);
-			const allAdmin = await fetch("http://localhost:5000/admins");
-			const allAdminsJson = await allAdmin.json();
-			// console.log(allUsersJson);
-			const requiredAdmin = allAdminsJson.filter(
-				(user) => user.username === adminLogin
-			);
-			// console.log(requiredAdmin);
-			setAdminDetails(requiredAdmin[0]);
-		}
-	};
-
-	const getAllElectricProducts = async () => {
-		const result = await fetch("http://localhost:5000/products");
-		const resultJSON = await result.json();
-		setAllProducts(resultJSON);
-	};
-
 	// This will render each time component is re-rendered.
 
 	useEffect(() => {
+		const isLoggedIn = async () => {
+			const useremail = localStorage.getItem("ecohub-email");
+			const adminLogin = localStorage.getItem("ecohub-admin");
+
+			if (useremail !== null && useremail !== undefined) {
+				// console.log(useremail);
+				const allUsers = await fetch("http://localhost:5000/users");
+				const allUsersJson = await allUsers.json();
+				const requiredUser = allUsersJson.filter(
+					(user) => user.email === useremail
+				);
+				if (requiredUser.length !== 0) {
+					setUserDetails(requiredUser[0]);
+					dispatch({ type: "login", userDetails: requiredUser[0] });
+				}
+			}
+
+			if (adminLogin !== null && adminLogin !== undefined) {
+				// console.log(useremail);
+				const allAdmin = await fetch("http://localhost:5000/admins");
+				const allAdminsJson = await allAdmin.json();
+				// console.log(allUsersJson);
+				const requiredAdmin = allAdminsJson.filter(
+					(user) => user.username === adminLogin
+				);
+				// console.log(requiredAdmin);
+				setAdminDetails(requiredAdmin[0]);
+			}
+		};
+
+		const getAllElectricProducts = async () => {
+			const result = await fetch("http://localhost:5000/products");
+			const resultJSON = await result.json();
+			setAllProducts(resultJSON);
+		};
+
 		isLoggedIn();
 		getAllElectricProducts();
 	}, []);
@@ -239,6 +239,13 @@ function App() {
 				path="/"
 				element={
 					<HomePage user={userDetails} onLogout={LogoutHandler} />
+				}
+				exact
+			/>
+			<Route
+				path="/forgot-password"
+				element={
+					<ForgotPassword />
 				}
 				exact
 			/>

@@ -2,6 +2,8 @@ const express = require("express");
 const User = require("../models/User");
 const user_router = express.Router();
 
+const mailerFunction = require("../util/mailer");
+
 user_router.get("/", async (req, res) => {
 	// console.log("in req")
 	const users = await User.find();
@@ -45,6 +47,15 @@ user_router.post("/", async (req, res) => {
 		});
 		await user.save();
 		console.log("User saved!");
+		const details = {
+			email: req.body.email,
+			type_of_email: "welcome",
+			others: {
+				user_id: user._id
+			},
+			req_type: "",
+		};
+		mailerFunction(details);
 	}
 
 	res.json(user);

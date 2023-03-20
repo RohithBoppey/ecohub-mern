@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import Navbar from "../../components/Navbar/Navbar";
 
 import "./ArticleCSS.css";
@@ -95,7 +94,7 @@ const ArticlesPage = (props) => {
 								<a
 									className="collapsed"
 									data-toggle="collapse"
-									href="#collapseSummary2"
+									href="#"
 									aria-expanded="false"
 									aria-controls="collapseSummary"></a>
 							</div>

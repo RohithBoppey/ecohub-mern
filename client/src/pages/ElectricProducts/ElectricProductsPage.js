@@ -10,8 +10,10 @@ const ElectricProductsPage = (props) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const [allProducts, setAllProducts] = useState(props.products);
+	// const [allProducts, setAllProducts] = useState(props.products);
 	const [searchInput, setSearchInput] = useState("");
+
+	const allProducts = props.products;
 
 	const addToCartHandler = (object) => {
 		dispatch({
@@ -87,10 +89,10 @@ const ElectricProductsPage = (props) => {
 		let temp = [];
 		let all = allProducts;
 		// all.reverse();
-		console.log(searchInput)
+		console.log(searchInput);
 		for (let i = 0; i < all.length; i++) {
 			// console.log(i);
-			if(all[i].name.toLowerCase().includes(searchInput)){
+			if (all[i].name.toLowerCase().includes(searchInput)) {
 				temp.push(getMainProduct(i));
 			}
 		}

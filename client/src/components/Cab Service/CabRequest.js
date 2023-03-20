@@ -3,15 +3,22 @@ import Lottie from "react-lottie";
 import { useNavigate } from "react-router-dom";
 import electriccab from "../../lotties/electric-cab.json";
 import { generateDefaultOptions } from "../../util/utils";
+import { Dialog, Text } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
 
 const Cabrequest = () => {
+	const [opened, { toggle, close }] = useDisclosure(false);
 
-	const navigate = useNavigate();
-	
-	const submitHandler = () => {
-		alert('Please check your email for confirmation');
-		navigate('/');
-	}
+	// const navigate = useNavigate();
+
+	const submitHandler = (event) => {
+		event.preventDefault();
+		toggle();
+		// alert("Please check your email for confirmation");
+		// if(opened === false){
+		// 	navigate("/");
+		// }
+	};
 
 	return (
 		<>
@@ -172,6 +179,18 @@ const Cabrequest = () => {
 						width={550}></Lottie>
 				</div>
 			</section>
+			<Dialog
+				opened={opened}
+				withCloseButton
+				onClose={close}
+				size="lg"
+				position={{ top: 20, right: 20 }}
+				radius="md">
+				<Text size="sm" weight={500}>
+					Booking Successful! You will receive an email for your
+					booking! Please look at it
+				</Text>
+			</Dialog>
 			<br /> <br />
 			<br />
 		</>

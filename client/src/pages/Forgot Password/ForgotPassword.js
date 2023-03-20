@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 
 import "../../components/Login_Signup/signup_css.css";
 
-const SigninForm = (props) => {
+const ForgotPassword = (props) => {
 	// using refs
 
 	const useremailRef = useRef();
@@ -26,7 +26,7 @@ const SigninForm = (props) => {
 							<div className="card-img-left d-none d-md-flex"></div>
 							<div className="card-body p-4 p-sm-5">
 								<h5 className="card-title text-center mb-5 fw-light fs-5">
-									Login
+									Forgot Password
 								</h5>
 
 								<form
@@ -51,64 +51,20 @@ const SigninForm = (props) => {
 
 									<hr />
 
-									<div className="form-floating mb-3">
-										<input
-											type="password"
-											className="form-control"
-											id="floatingPassword"
-											placeholder="Password"
-											name="password"
-											ref={passwordRef}
-										/>
-										<label
-											for="floatingPassword"
-											required
-											pattern=".{8,}"
-											title="Minimum 8 required">
-											Password{" "}
-											<span className="span_login">
-												*
-											</span>
-										</label>
-									</div>
-
 									<div className="d-grid mb-2">
 										<button
 											className="btn btn-lg btn-secondary btn-login fw-bold text-uppercase"
 											type="submit">
-											Login
+											Send Email
 										</button>
 									</div>
 
 									<a
 										className="d-block text-center mt-2 small"
-										href="/register">
-										Don't Have an account? Register
-									</a>
-									<a
-										className="d-block text-center mt-2 small"
-										href="/forgot-password">
-										Forgot Password?
+										href="/signin">
+										Remember the Password? Sign In
 									</a>
 									<hr className="my-4" />
-
-									<div className="d-grid mb-2">
-										<button
-											className="btn btn-lg btn-google btn-login fw-bold text-uppercase"
-											type="submit">
-											<i className="fab fa-google me-2"></i>{" "}
-											Log in with Google
-										</button>
-									</div>
-
-									<div className="d-grid">
-										<button
-											className="btn btn-lg btn-facebook btn-login fw-bold text-uppercase"
-											type="submit">
-											<i className="fab fa-facebook-f me-2"></i>{" "}
-											Log in with Facebook
-										</button>
-									</div>
 								</form>
 							</div>
 						</div>
@@ -119,4 +75,4 @@ const SigninForm = (props) => {
 	);
 };
 
-export default SigninForm;
+export default ForgotPassword;

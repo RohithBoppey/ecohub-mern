@@ -6,8 +6,6 @@ import CabRequest from "../../components/Cab Service/CabRequest";
 import CabPrices from "../../components/Cab Service/CabPrices";
 import Navbar from "../../components/Navbar/Navbar";
 
-import { useSelector } from "react-redux";
-
 const Cabservice = (props) => {
 	return (
 		<>

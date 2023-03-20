@@ -7,7 +7,6 @@ import Navbar from "../../components/Navbar/Navbar";
 
 const Evpage = (props) => {
 	console.log(props);
-	const isLoggedIn = Object.keys(props.user).length !== 0;
 
 	return (
 		<>

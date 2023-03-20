@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 import Messages from "../../components/Admin/Messages";
 
 const ShowAllMessages = (props) => {
 	// Set messages as soon as page renderes
 	const [allMessages, setAllMessages] = useState([]);
-	const navigate = useNavigate();
 
 	/*
 		1. Fetch all messages from json-server.

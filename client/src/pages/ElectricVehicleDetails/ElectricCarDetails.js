@@ -3,9 +3,8 @@ import { useParams } from "react-router-dom";
 import VehicleFullDetails from "./VehicleFullDetails";
 
 const ElectricCarDetails = () => {
-
 	// useParams = extract name from URL
-	
+
 	const { name } = useParams();
 	// console.log(name);
 
@@ -15,21 +14,21 @@ const ElectricCarDetails = () => {
 		1. Compare the slug to entered slug
 		2. Matched and Set the details.
 	*/
-	const getDetails = async () => {
-		const allVehicles = await fetch("http://localhost:3001/vehicles");
-		const allVehiclesJSON = await allVehicles.json();
-		console.log(allVehiclesJSON);
-		const requriedVehicle = allVehiclesJSON.filter(
-			(veh) => veh.slug === name
-		);
-		console.log(requriedVehicle[0]);
-		setVehicleDetails(requriedVehicle[0]);
-	};
 
 	// get details from backend and set state
 	useEffect(() => {
+		const getDetails = async () => {
+			const allVehicles = await fetch("http://localhost:3001/vehicles");
+			const allVehiclesJSON = await allVehicles.json();
+			console.log(allVehiclesJSON);
+			const requriedVehicle = allVehiclesJSON.filter(
+				(veh) => veh.slug === name
+			);
+			console.log(requriedVehicle[0]);
+			setVehicleDetails(requriedVehicle[0]);
+		};
 		getDetails();
-	}, []);
+	});
 
 	const vehDetails =
 		vehicleDetails === undefined ? (

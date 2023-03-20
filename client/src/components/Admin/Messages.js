@@ -12,7 +12,7 @@ const Messages = (props) => {
 			<br></br>
 			<h2 className="h2-m">Messages from Customers:</h2>
 			<br></br>
-			<div className="alcenter">
+			{props.messages.length !==0 ? <div className="alcenter">
 				<table
 					className="table-m"
 					border="2px"
@@ -50,10 +50,10 @@ const Messages = (props) => {
 							</td>
 							<th className="th-sd">
 								<a
-									href={`https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=${message.useremail}`}
+									href={`https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=${message.message_details.email}`}
 									target="__blank"
 									onClick={() =>
-										props.onRemoveMessage(message._id)
+										props.onRemoveMessage(message.message_details._id)
 									}>
 									<center>
 										<button
@@ -101,7 +101,11 @@ const Messages = (props) => {
 						</th> */}
 					{/* </tr> */}
 				</table>
-			</div>
+			</div> : <div className = 'alcenter'>
+				<i>
+					Hurray! No Requests found!
+					</i>
+				</div>}
 		</>
 	);
 };

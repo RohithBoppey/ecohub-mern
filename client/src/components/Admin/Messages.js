@@ -43,6 +43,9 @@ const Messages = (props) => {
 								{message.message_details.type}
 							</td>
 							<td className="th-m">
+								{message.message_details.message}
+							</td>
+							<td className="th-m">
 								{message.message_details._id}
 							</td>
 							<th className="th-sd">
@@ -62,9 +65,6 @@ const Messages = (props) => {
 									</center>
 								</a>
 							</th>
-							<td className="th-m">
-								{message.message_details.message}
-							</td>
 						</tr>
 					))}
 					{/* <th className="th-m">hit@gmail.com</th>

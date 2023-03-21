@@ -62,11 +62,14 @@ app.post('/getotp',(req,res)=>{
 })
 
 app.post('/verifyotp', (req, res) => {
-    if (req.body.enteredotp == verifytoken) {
+    if (req.body.enteredotp == verifytoken && req.body.enteredemail == verifyemail) {
         res.send(`successfully verified user`);
     }
+    else if (req.body.enteredotp == verifytoken && req.body.enteredemail != verifyemail) {
+        res.send('enter your otp using correct email!!');
+    }
     else {
-        res.send('enter correct otp');
+        res.send('enter correct otp!!')
     }
 })
 

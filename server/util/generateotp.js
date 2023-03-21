@@ -61,4 +61,13 @@ app.post('/getotp',(req,res)=>{
 
 })
 
+app.post('/verifyotp', (req, res) => {
+    if (req.body.enteredotp == verifytoken) {
+        res.send(`successfully verified user`);
+    }
+    else {
+        res.send('enter correct otp');
+    }
+})
+
 console.log(verifytoken)

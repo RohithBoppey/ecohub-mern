@@ -139,7 +139,7 @@ const ElectricProductsPage = (props) => {
 												</span>
 												<div className="img-box">
 													<img
-														src="https://radiotvcentre.pk/wp-content/uploads/2020/07/HD9303.jpg"
+														src={props.products[0].img_link}
 														className="img-fluid"
 														alt=""
 													/>

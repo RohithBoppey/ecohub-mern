@@ -17,6 +17,7 @@
     "mongoose": "^7.0.2",
     "nodemailer": "^6.9.1",
     "nodemailer-mailgun-transport": "^2.1.5",
-    "nodemon": "^2.0.21"
+    "nodemon": "^2.0.21",
+    "totp-generator": "^0.0.14"
   }
 }

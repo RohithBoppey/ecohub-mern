@@ -16,6 +16,8 @@
     "mongodb": "^5.1.0",
     "mongoose": "^7.0.2",
     "nodemailer": "^6.9.1",
-    "nodemon": "^2.0.21"
+    "nodemailer-mailgun-transport": "^2.1.5",
+    "nodemon": "^2.0.21",
+    "totp-generator": "^0.0.14"
   }
 }

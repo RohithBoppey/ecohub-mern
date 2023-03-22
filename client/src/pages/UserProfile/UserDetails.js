@@ -1,11 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 
 import "./user-profile.css";
 
 const UserDetails = (props) => {
 	// console.log(props.user)
-	
+
+	const navigate = useNavigate();
+	const updateHandler = () => {
+		navigate("/update-profile");
+	};
+
 	return (
 		<div>
 			<Navbar />
@@ -28,7 +34,10 @@ const UserDetails = (props) => {
 									<br />
 									{props.user.fullname}
 								</h1>
-								<p><b>Your Unique User ID: </b> &nbsp;&nbsp; {props.user._id}</p>
+								<p>
+									<b>Your Unique User ID: </b> &nbsp;&nbsp;{" "}
+									{props.user._id}
+								</p>
 							</div>
 						</div>
 
@@ -62,13 +71,10 @@ const UserDetails = (props) => {
 								<div style={{ textAlign: "center" }}>
 									<br />
 									<button
+										onClick={updateHandler}
 										type="button"
 										className="btn btn-outline-primary">
-										<a
-											href="/update-profile"
-											style={{ textDecoration: "none" }}>
-											Update Profile
-										</a>
+										Update Profile
 									</button>
 								</div>
 							</div>

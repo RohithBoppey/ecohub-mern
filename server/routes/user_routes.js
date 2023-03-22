@@ -82,4 +82,28 @@ user_router.delete("/:id", async (req, res) => {
 	res.json({ message });
 });
 
+
+user_router.post("/update-profile",async(req,res)=>{
+	console.log(`req recieved`);
+	console.log(req.body);
+	
+	const user = await User.findByIdAndUpdate(
+		req.body.id,
+		{
+			fullname: req.body.fullname,
+			username: req.body.username,
+			email: req.body.email,
+			phone_number:req.body.phone_number,
+			city: req.body.city,
+			image_url:req.body.image_url,
+			updatedAt: Date.now(),
+		},
+		// { new: true }
+	);
+	const message = "User updated successfully"; 
+	console.log(message);
+	res.json(user);
+})
+
+
 module.exports = user_router;

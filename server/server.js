@@ -32,7 +32,7 @@ mongoose
 app.use('/users/', user_router);
 app.use('/admins/', admin_router);
 app.use('/products/', product_router);
-app.use('/messages/', message_router);
+app.use('/messages/', message_router); 
 
 // start server
 const PORT = 5000;

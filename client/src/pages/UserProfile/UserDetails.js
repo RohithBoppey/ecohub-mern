@@ -59,7 +59,7 @@ const UserDetails = (props) => {
 									</h5>
 								</div>
 
-								{/* <div style={{ textAlign: "center" }}>
+								<div style={{ textAlign: "center" }}>
 									<br />
 									<button
 										type="button"
@@ -70,7 +70,7 @@ const UserDetails = (props) => {
 											Update Profile
 										</a>
 									</button>
-								</div> */}
+								</div>
 							</div>
 						</div>
 					</div>

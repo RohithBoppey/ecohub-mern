@@ -95,7 +95,8 @@ user_router.post("/update-profile",async(req,res)=>{
 			email: req.body.email,
 			phone_number:req.body.phone_number,
 			city: req.body.city,
-			image_url:req.body.image_url,
+			address:req.body.address,
+			img_url:req.body.image_url,
 			updatedAt: Date.now(),
 		},
 		// { new: true }

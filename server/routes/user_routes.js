@@ -1,8 +1,17 @@
 const express = require("express");
 const User = require("../models/User");
 const user_router = express.Router();
-
+const bcrypt = require('bcrypt')
 const mailerFunction = require("../util/mailer");
+
+function hashpassword(password) {
+	const salt = bcrypt.genSaltSync()
+	return bcrypt.hashSync(password, salt)
+}
+
+function comparepassword(raw, hash) {
+	return bcrypt.compareSync(raw, hash)
+}
 
 user_router.get("/", async (req, res) => {
 	// console.log("in req")
@@ -19,7 +28,7 @@ user_router.get("/:id", async (req, res) => {
 user_router.post("/", async (req, res) => {
 	let user = await User.find({
 		email: req.body.email,
-		password: req.body.password,
+		// password: hashpassword(req.body.password),
 	});
 	console.log(req.body);
 	console.log(user);
@@ -37,7 +46,7 @@ user_router.post("/", async (req, res) => {
 			username: req.body.username,
 			fullname: req.body.fullname,
 			email: req.body.email,
-			password: req.body.password,
+			password: hashpassword(req.body.password),
 			city: req.body.city,
 			address: req.body.address,
 			gender: req.body.gender,
@@ -64,12 +73,25 @@ user_router.post("/", async (req, res) => {
 user_router.post("/signin", async (req, res) => {
 	let user = await User.find({
 		email: req.body.email,
-		password: req.body.password,
 	});
-	console.log(req.body);
-	console.log(user);
 
-	res.json(user);
+	console.log(user)
+	if( user.length > 0){
+		console.log(req.body);
+		console.log(user);
+		if (comparepassword(req.body.password, user[0].password)){
+			res.json(user);
+		}
+		else {
+			
+			res.json([]);
+		}
+	} 
+	else{
+		
+		res.json([]);
+	}
+	
 });
 
 user_router.put("/:id", async (req, res) => {

@@ -51,12 +51,23 @@ user_router.post("/", async (req, res) => {
 			email: req.body.email,
 			type_of_email: "welcome",
 			others: {
-				user_id: user._id
+				user_id: user._id,
 			},
 			req_type: "",
 		};
 		mailerFunction(details);
 	}
+
+	res.json(user);
+});
+
+user_router.post("/signin", async (req, res) => {
+	let user = await User.find({
+		email: req.body.email,
+		password: req.body.password,
+	});
+	console.log(req.body);
+	console.log(user);
 
 	res.json(user);
 });
@@ -82,29 +93,27 @@ user_router.delete("/:id", async (req, res) => {
 	res.json({ message });
 });
 
-
-user_router.post("/update-profile",async(req,res)=>{
+user_router.post("/update-profile", async (req, res) => {
 	console.log(`req recieved`);
 	console.log(req.body);
-	
+
 	const user = await User.findByIdAndUpdate(
 		req.body.id,
 		{
 			fullname: req.body.fullname,
 			username: req.body.username,
 			email: req.body.email,
-			phone_number:req.body.phone_number,
+			phone_number: req.body.phone_number,
 			city: req.body.city,
-			address:req.body.address,
-			img_url:req.body.image_url,
+			address: req.body.address,
+			img_url: req.body.image_url,
 			updatedAt: Date.now(),
-		},
+		}
 		// { new: true }
 	);
-	const message = "User updated successfully"; 
+	const message = "User updated successfully";
 	console.log(message);
 	res.json(user);
-})
-
+});
 
 module.exports = user_router;

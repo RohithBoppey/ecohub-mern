@@ -12,7 +12,7 @@ const SigninForm = (props) => {
 		event.preventDefault();
 		// onSubmitForm = onSign (App.js)
 		props.onSubmitForm({
-			useremail: useremailRef.current.value,
+			email: useremailRef.current.value,
 			password: passwordRef.current.value,
 		});
 	};

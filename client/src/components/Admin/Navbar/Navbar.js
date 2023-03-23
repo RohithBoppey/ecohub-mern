@@ -65,6 +65,15 @@ const AdminNavbar = (props) => {
 							<Link
 								className="nav-link active"
 								aria-current="page"
+								to="/admin/announce">
+								Announce
+							</Link>
+						</li>
+
+						<li className="nav-item">
+							<Link
+								className="nav-link active"
+								aria-current="page"
 								to="/admin/home"
 								onClick={props.onLogout}>
 								Logout

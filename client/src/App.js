@@ -21,8 +21,8 @@ import ShowAllMessages from "./pages/Admin/ShowAllMessages";
 import UserCart from "./pages/Cart/UserCart";
 import { useDispatch } from "react-redux";
 import ForgotPassword from "./pages/Forgot Password/ForgotPassword";
-import { Announce } from "./components/Admin/Announce";
 import Updateprofile from "./pages/UpdateProfile/Updateprofile";
+import AnnouncePage from "./pages/Admin/AnnouncePage";
 
 /* 
 	This is the main file.
@@ -255,7 +255,10 @@ function App() {
 			<Route
 				path="/update-profile"
 				element={
-					<Updateprofile user={userDetails} onLogout={LogoutHandler} />
+					<Updateprofile
+						user={userDetails}
+						onLogout={LogoutHandler}
+					/>
 				}
 				exact
 			/>
@@ -270,7 +273,7 @@ function App() {
 				}
 				exact
 			/>
-			
+
 			<Route
 				path="/signin"
 				element={<Signin onSignin={onSign} onLogout={LogoutHandler} />}
@@ -454,7 +457,7 @@ function App() {
 							onLogout={adminLogoutHandler}
 						/>
 					) : (
-						<Announce onLogout={adminLogoutHandler} />
+						<AnnouncePage onLogout={adminLogoutHandler} />
 					)
 					// <AdminLoginPage
 					// 	onSignin={adminSigninHandler}

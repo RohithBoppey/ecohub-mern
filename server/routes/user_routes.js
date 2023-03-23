@@ -116,4 +116,12 @@ user_router.post("/update-profile", async (req, res) => {
 	res.json(user);
 });
 
+user_router.post("/get-cart", async (req, res) => {
+	const id = req.body.id;
+	console.log(id);
+	const results = await User.find({ _id: id }).populate("cart");
+	console.log(results);
+	res.json({ results });
+});
+
 module.exports = user_router;

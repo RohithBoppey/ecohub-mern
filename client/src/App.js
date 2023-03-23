@@ -22,6 +22,7 @@ import UserCart from "./pages/Cart/UserCart";
 import { useDispatch } from "react-redux";
 import ForgotPassword from "./pages/Forgot Password/ForgotPassword";
 import { Announce } from "./components/Admin/Announce";
+import Updateprofile from "./pages/UpdateProfile/Updateprofile";
 
 /* 
 	This is the main file.
@@ -251,6 +252,13 @@ function App() {
 				}
 				exact
 			/>
+			<Route
+				path="/update-profile"
+				element={
+					<Updateprofile user={userDetails} onLogout={LogoutHandler} />
+				}
+				exact
+			/>
 			<Route path="/error" element={<Error />} exact />
 			<Route
 				path="/register"
@@ -262,6 +270,7 @@ function App() {
 				}
 				exact
 			/>
+			
 			<Route
 				path="/signin"
 				element={<Signin onSignin={onSign} onLogout={LogoutHandler} />}

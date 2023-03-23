@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import "./PageList.css";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
+
+import Axios from "axios";
 
 const ElectricProductsPage = (props) => {
 	// console.log(props)
@@ -12,14 +14,22 @@ const ElectricProductsPage = (props) => {
 
 	// const [allProducts, setAllProducts] = useState(props.products);
 	const [searchInput, setSearchInput] = useState("");
-
+	const userDetails = useSelector((state) => state.userDet);
 	const allProducts = props.products;
 
-	const addToCartHandler = (object) => {
-		dispatch({
-			type: "add-to-cart",
-			product: object,
-		});
+	const addToCartHandler = async (object) => {
+		// dispatch({
+		// 	type: "add-to-cart",
+		// 	product: object,
+		// });
+		const response = await Axios.post(
+			"http://localhost:5000/users/add-to-cart",
+			{
+				user_id: userDetails._id,
+				product_id: object._id,
+			}
+		);
+		console.log(response);
 		navigate("/show-cart");
 	};
 
@@ -139,7 +149,10 @@ const ElectricProductsPage = (props) => {
 												</span>
 												<div className="img-box">
 													<img
-														src={props.products[0].img_link}
+														src={
+															props.products[0]
+																.img_link
+														}
 														className="img-fluid"
 														alt=""
 													/>

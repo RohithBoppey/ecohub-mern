@@ -124,4 +124,48 @@ user_router.post("/get-cart", async (req, res) => {
 	res.json({ results });
 });
 
+user_router.post("/add-to-cart", async (req, res) => {
+	console.log(req.body);
+	const user = await User.find({ _id: req.body.user_id });
+	let response;
+	if (user.length !== 0) {
+		// then the first one in array is the user
+		const cart = user[0].cart;
+		if (!cart.includes(req.body.product_id)) {
+			// we need to add into the array
+			cart.push(req.body.product_id);
+			await User.updateOne({ _id: req.body.user_id }, { cart: cart });
+			console.log("Added");
+			response = "Added into the Cart";
+		} else {
+			console.log("Present");
+			response = "Already present in the Cart";
+		}
+	} else {
+		response = "Non-valid user";
+	}
+	res.send(response);
+});
+
+user_router.post("/remove-from-cart", async (req, res) => {
+	// console.log(req.body);
+	const user = await User.find({ _id: req.body.user_id });
+	let response;
+	if (user.length !== 0) {
+		// then the first one in array is the user
+		let cart = user[0].cart;
+		console.log(cart);
+		cart = cart.filter(
+			(item) => item._id.toString() !== req.body.product_id
+		);
+		console.log(cart);
+		await User.updateOne({ _id: req.body.user_id }, { cart: cart });
+		console.log("Removed from cart");
+		response = "Removed from Cart";
+	} else {
+		response = "Non-valid user";
+	}
+	res.send(response);
+});
+
 module.exports = user_router;

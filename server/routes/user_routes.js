@@ -103,7 +103,7 @@ user_router.post("/update-profile", async (req, res) => {
 			fullname: req.body.fullname,
 			username: req.body.username,
 			email: req.body.email,
-			phone_number: req.body.phone_number,
+			phone_number: req.body.phoneNumber,
 			city: req.body.city,
 			address: req.body.address,
 			img_url: req.body.image_url,

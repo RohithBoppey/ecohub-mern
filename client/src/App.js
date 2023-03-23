@@ -21,6 +21,7 @@ import ShowAllMessages from "./pages/Admin/ShowAllMessages";
 import UserCart from "./pages/Cart/UserCart";
 import { useDispatch } from "react-redux";
 import ForgotPassword from "./pages/Forgot Password/ForgotPassword";
+import { Announce } from "./components/Admin/Announce";
 import Updateprofile from "./pages/UpdateProfile/Updateprofile";
 
 /* 
@@ -243,13 +244,7 @@ function App() {
 				}
 				exact
 			/>
-			<Route
-				path="/forgot-password"
-				element={
-					<ForgotPassword />
-				}
-				exact
-			/>
+			<Route path="/forgot-password" element={<ForgotPassword />} exact />
 			<Route
 				path="/user-profile"
 				element={
@@ -449,6 +444,26 @@ function App() {
 				}
 				exact
 			/>
+
+			<Route
+				path="/admin/announce"
+				element={
+					Object.keys(adminDetails).length === 0 ? (
+						<AdminLoginPage
+							onSignin={adminSigninHandler}
+							onLogout={adminLogoutHandler}
+						/>
+					) : (
+						<Announce onLogout={adminLogoutHandler} />
+					)
+					// <AdminLoginPage
+					// 	onSignin={adminSigninHandler}
+					// 	onLogout={adminLogoutHandler}
+					// />
+				}
+				exact
+			/>
+
 			{/* Error if no page is found */}
 			<Route path="*" element={<Error />} exact />
 		</Routes>

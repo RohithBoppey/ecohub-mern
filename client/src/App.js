@@ -63,19 +63,19 @@ function App() {
 		*/
 
 		// console.log(details);
-		const allUsers = await fetch("http://localhost:5000/users");
+		const user = await fetch("http://localhost:5000/users/signin", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(details),
+		});
+
+		const requiredUser = await user.json();
 
 		/* 
 			String -> Convert into JSON
 		*/
-
-		const allUsersJson = await allUsers.json();
-		// console.log(allUsersJson);
-		const requiredUser = allUsersJson.filter(
-			(user) =>
-				user.email === details.useremail &&
-				user.password === details.password
-		);
 
 		/* Filtered user => array like [{}] => One object */
 

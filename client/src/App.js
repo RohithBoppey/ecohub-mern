@@ -21,6 +21,7 @@ import ShowAllMessages from "./pages/Admin/ShowAllMessages";
 import UserCart from "./pages/Cart/UserCart";
 import { useDispatch } from "react-redux";
 import ForgotPassword from "./pages/Forgot Password/ForgotPassword";
+import DemoArticles from "./pages/Articles/DemoArticles";
 
 /* 
 	This is the main file.
@@ -282,7 +283,8 @@ function App() {
 			<Route
 				path="/articles"
 				element={
-					<ArticlesPage user={userDetails} onLogout={LogoutHandler} />
+					// <ArticlesPage user={userDetails} onLogout={LogoutHandler} />
+					<DemoArticles />
 				}
 				exact
 			/>

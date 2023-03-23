@@ -23,7 +23,6 @@ import { useDispatch } from "react-redux";
 import ForgotPassword from "./pages/Forgot Password/ForgotPassword";
 import Updateprofile from "./pages/UpdateProfile/Updateprofile";
 import AnnouncePage from "./pages/Admin/AnnouncePage";
-import DemoArticles from "./pages/Articles/DemoArticles";
 
 /* 
 	This is the main file.
@@ -290,8 +289,7 @@ function App() {
 			<Route
 				path="/articles"
 				element={
-					// <ArticlesPage user={userDetails} onLogout={LogoutHandler} />
-					<DemoArticles />
+					<ArticlesPage user={userDetails} onLogout={LogoutHandler} />
 				}
 				exact
 			/>

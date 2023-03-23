@@ -1,3 +1,4 @@
+import Axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +7,8 @@ import Navbar from "../../components/Navbar/Navbar";
 import "./Cart.css";
 
 const UserCart = (props) => {
+	const userDetails = useSelector((state) => state.userDet);
+	console.log(userDetails);
 	const tempCart = useSelector((state) => state.cart);
 	const navigate = useNavigate();
 
@@ -31,9 +34,25 @@ const UserCart = (props) => {
 
 	const [finalCart, setFinalCart] = useState(cart);
 
+	const getCartDetails = async () => {
+		let temp = await Axios.post("http://localhost:5000/users/get-cart", {
+			id: userDetails._id,
+		});
+		const data = temp.data.results[0];
+		const tempCart = data.cart;
+		const cart = [];
+		tempCart.forEach((cartItem) => {
+			cart.push({ ...cartItem, count: 1 });
+		});
+		console.log(cart);
+		setFinalCart(cart);
+	};
+
 	useEffect(() => {
+		getCartDetails();
 		calculateTotal();
-	});
+	}, []);
+
 	/*eslint-disable no-array-constructor*/
 	const inputRef = useRef(new Array());
 
@@ -61,13 +80,17 @@ const UserCart = (props) => {
 		)}\nThank you for shopping with us!\nHoping to see you soon Customer.`;
 		alert(text);
 		dispatch({ type: "clear-cart" });
-        setFinalCart([])
+		setFinalCart([]);
 		navigate("/show-cart");
 	};
 
-	const removeItemFromCart = (id) => {
-		dispatch({type: 'remove-item-from-cart', productId: id})
-	}
+	const removeItemFromCart = async (id) => {
+		const response = await Axios.post('http://localhost:5000/users/remove-from-cart', {
+			product_id: id,
+			user_id: userDetails._id
+		})
+		navigate('/electric-products');
+	};
 
 	const getDetails = (detail) => {
 		// console.log(detail);
@@ -80,7 +103,7 @@ const UserCart = (props) => {
 							{detail.name} &nbsp;
 							<span
 								style={{ fontSize: 12, fontStyle: "oblique" }}>
-								({detail._id.$oid})
+								({detail._id})
 							</span>{" "}
 						</span>
 					</div>
@@ -103,14 +126,16 @@ const UserCart = (props) => {
 							type="button"
 							onClick={() => {
 								// props.removeFromCart(detail.id);
-								removeItemFromCart(detail._id.$oid)
+								removeItemFromCart(detail._id);
 								setFinalCart((prevCart) => {
-									console.log(prevCart)
+									console.log(prevCart);
 									return prevCart.filter(
-										(cartItem) => cartItem._id.$oid !== detail._id.$oid
+										(cartItem) =>
+											cartItem._id.$oid !==
+											detail._id.$oid
 									);
 								});
-								
+
 								navigate("/show-cart");
 							}}>
 							REMOVE
@@ -143,11 +168,15 @@ const UserCart = (props) => {
 								</span>
 							</div>
 
-							{cart.map((cartItem) => getDetails(cartItem))}
+							{finalCart.map((cartItem) => getDetails(cartItem))}
 
 							<div className="cart-total">
-								<strong className="cart-total-title">Total</strong>
-								<span className="cart-total-price" id="finalPrice">
+								<strong className="cart-total-title">
+									Total
+								</strong>
+								<span
+									className="cart-total-price"
+									id="finalPrice">
 									₹{total.toFixed(2)}
 								</span>
 							</div>

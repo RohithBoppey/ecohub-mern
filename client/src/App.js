@@ -202,6 +202,7 @@ function App() {
 					(user) => user.email === useremail
 				);
 				if (requiredUser.length !== 0) {
+					// console.log(requiredUser);
 					setUserDetails(requiredUser[0]);
 					dispatch({ type: "login", userDetails: requiredUser[0] });
 				}

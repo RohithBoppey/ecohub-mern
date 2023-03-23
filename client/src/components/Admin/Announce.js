@@ -1,7 +1,7 @@
 import { createStyles, Text, Container, Textarea, Button } from "@mantine/core";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'
+import axios from "axios";
 const useStyles = createStyles((theme) => ({
 	title: {
 		fontFamily: `Greycliff CF, ${theme.fontFamily}`,
@@ -18,13 +18,13 @@ export function Announce() {
 	const announcementRef = useRef();
 
 	const submitHandler = (event) => {
-		console.log(' submit handler in action') 
+		console.log(" submit handler in action");
 		event.preventDefault();
-		const announcement={
-			announcementValue:announcementRef.current.value,
-		}
-		axios.post("http://localhost:5000/admins/announce",announcement);
-		navigate('/admin/home');
+		const announcement = {
+			announcementValue: announcementRef.current.value,
+		};
+		axios.post("http://localhost:5000/admins/announce", announcement);
+		navigate("/admin/home");
 	};
 
 	return (
@@ -41,9 +41,8 @@ export function Announce() {
 					minRows={4}
 					ref={announcementRef}
 				/>
-				<Button type="submit" >Announce!</Button>
+				<Button type="submit">Announce!</Button>
 			</form>
-			
 		</Container>
 	);
 }

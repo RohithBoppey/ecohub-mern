@@ -21,6 +21,8 @@ import ShowAllMessages from "./pages/Admin/ShowAllMessages";
 import UserCart from "./pages/Cart/UserCart";
 import { useDispatch } from "react-redux";
 import ForgotPassword from "./pages/Forgot Password/ForgotPassword";
+import Updateprofile from "./pages/UpdateProfile/Updateprofile";
+import AnnouncePage from "./pages/Admin/AnnouncePage";
 import DemoArticles from "./pages/Articles/DemoArticles";
 
 /* 
@@ -62,19 +64,19 @@ function App() {
 		*/
 
 		// console.log(details);
-		const allUsers = await fetch("http://localhost:5000/users");
+		const user = await fetch("http://localhost:5000/users/signin", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(details),
+		});
+
+		const requiredUser = await user.json();
 
 		/* 
 			String -> Convert into JSON
 		*/
-
-		const allUsersJson = await allUsers.json();
-		// console.log(allUsersJson);
-		const requiredUser = allUsersJson.filter(
-			(user) =>
-				user.email === details.useremail &&
-				user.password === details.password
-		);
 
 		/* Filtered user => array like [{}] => One object */
 
@@ -243,17 +245,21 @@ function App() {
 				}
 				exact
 			/>
-			<Route
-				path="/forgot-password"
-				element={
-					<ForgotPassword />
-				}
-				exact
-			/>
+			<Route path="/forgot-password" element={<ForgotPassword />} exact />
 			<Route
 				path="/user-profile"
 				element={
 					<UserDetails user={userDetails} onLogout={LogoutHandler} />
+				}
+				exact
+			/>
+			<Route
+				path="/update-profile"
+				element={
+					<Updateprofile
+						user={userDetails}
+						onLogout={LogoutHandler}
+					/>
 				}
 				exact
 			/>
@@ -268,6 +274,7 @@ function App() {
 				}
 				exact
 			/>
+
 			<Route
 				path="/signin"
 				element={<Signin onSignin={onSign} onLogout={LogoutHandler} />}
@@ -442,6 +449,26 @@ function App() {
 				}
 				exact
 			/>
+
+			<Route
+				path="/admin/announce"
+				element={
+					Object.keys(adminDetails).length === 0 ? (
+						<AdminLoginPage
+							onSignin={adminSigninHandler}
+							onLogout={adminLogoutHandler}
+						/>
+					) : (
+						<AnnouncePage onLogout={adminLogoutHandler} />
+					)
+					// <AdminLoginPage
+					// 	onSignin={adminSigninHandler}
+					// 	onLogout={adminLogoutHandler}
+					// />
+				}
+				exact
+			/>
+
 			{/* Error if no page is found */}
 			<Route path="*" element={<Error />} exact />
 		</Routes>

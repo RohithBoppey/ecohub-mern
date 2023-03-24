@@ -43,7 +43,7 @@ function App() {
 	const [adminDetails, setAdminDetails] = useState({});
 
 	const [allProducts, setAllProducts] = useState([]);
-
+	const [allvehicles, setAllvehicles] = useState([]);
 	const dispatch = useDispatch();
 
 	/* 
@@ -227,9 +227,15 @@ function App() {
 			const resultJSON = await result.json();
 			setAllProducts(resultJSON);
 		};
+		const getAllElectricVehicles = async () => {
+			const values = await fetch("http://localhost:5000/products");
+			const valuesJSON = await values.json();
+			setAllvehicles(valuesJSON);
+		};
 
 		isLoggedIn();
 		getAllElectricProducts();
+		getAllElectricVehicles();
 	}, []);
 
 	// Routing should be here.

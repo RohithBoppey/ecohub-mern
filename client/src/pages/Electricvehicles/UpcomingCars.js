@@ -1,5 +1,4 @@
-import React from "react";
-
+import React, { useEffect, useState } from "react";
 import Nexon from "./nexon.jpg";
 import E20 from "./e20.jpg";
 import Volvo from "./volvo.jpg";
@@ -7,6 +6,22 @@ import XC40 from "./xc40.jpg";
 import { Link } from "react-router-dom";
 
 const UpcomingCars = () => {
+	const [allvehicle, setAllvehicles] = useState([]);
+
+	useEffect(() => {
+		const getAllvehicles = async () => {
+		const temp = await fetch("http://localhost:5000/allvehicles/");
+		// console.log('hi')
+		// console.log(temp)
+		console.log('bye')
+		const tempJson = await temp.json();
+		console.log(tempJson)
+		console.log(tempJson.article);
+		setAllvehicles(tempJson);
+		};
+		getAllvehicles();
+	}, []);
+	let img;
 	return (
 		<>
 			<br />
@@ -21,7 +36,35 @@ const UpcomingCars = () => {
 					EV1 and Tesla Cybertruck.
 				</p>
 				<div className="grid">
-					<figure className="effect-sarah">
+					{allvehicle.map((vehicle) => {
+						if(vehicle.title =='Tata Nexon'){
+							img=Nexon;
+						}
+						else if(vehicle.title =='Mahindra E20 Plus'){
+							img=E20;
+						}
+						else if(vehicle.title =='Mercedes Benz EQS'){
+							img=Volvo;
+						}
+						else{
+							img=XC40;
+						}
+						return (
+						<figure className="effect-sarah">
+							<img className="image__img" src={img} alt="service" />
+							<figcaption>
+								<h2>
+									<span className="newCar">{vehicle.title}</span>
+								</h2>
+								<p>
+									{vehicle.desc}
+								</p>
+								<Link to="/ev_cars/tata-nexon">View more</Link>
+							</figcaption>
+						</figure>
+						);
+					})}
+					{/* <figure className="effect-sarah">
 						<img className="image__img" src={Nexon} alt="service" />
 						<figcaption>
 							<h2>
@@ -85,7 +128,7 @@ const UpcomingCars = () => {
 							</p>
 							<Link to="/ev_cars/xc40-recharge">View more</Link>
 						</figcaption>
-					</figure>
+					</figure> */}
 				</div>
 				<br />
 				<br />

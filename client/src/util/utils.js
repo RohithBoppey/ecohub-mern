@@ -18,7 +18,6 @@ export const sendMessageToAdmin = async (messageDetails) => {
 				`You have already kept a ${messageDetails.type} message. Please wait.`
 			);
 			flag = true;
-			return;
 		}
 	});
 

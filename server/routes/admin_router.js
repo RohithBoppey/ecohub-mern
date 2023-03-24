@@ -19,36 +19,39 @@ admin_router.get("/", async (req, res) => {
 });
 
 admin_router.post("/announce", async (req, res) => {
-	console.log("req recieved");
-	console.log(req.body.announcementValue);
-	const nodemailerMailgun = nodemailer.createTransport(mg(auth));
-
 	const users = await User.find();
 
-	let len = users.length;
+	let transporter = nodemailer.createTransport({
+		host: "smtp.gmail.com", // SMTP server address (usually mail.your-domain.com)
+		port: 465, // Port for SMTP (usually 465)
+		secure: true, // Usually true if connecting to port 465
+		auth: {
+			user: "ecohub.v3@gmail.com", // Your email address
+			pass: "gqvozdspfmcxvwif", // Password (for gmail, your app password)
+			// ⚠️ For better security, use environment variables set on the server for these values when deploying
+		},
+	});
 
-	while (len != 0) {
-		nodemailerMailgun.sendMail(
-			{
-				from: "ecohub.mern@gmail.com",
-				to: users[`${len - 1}`].email, // An array if you have multiple recipients.
-				subject: "Hey you, awesome!",
-				//You can use "html:" to send HTML email content. It's magic!
-				html: `<h1>Ecohub..</h1>
-        <h3>
-        ${req.body.announcementValue}
-        <br /> Thank you and have a great day!</h3>
-        <h4>Ecohub, India</h4>`,
-			},
-			(err, info) => {
-				if (err) {
-					console.log(`Error: ${err}`);
-				} else {
-					console.log(`Response: ${info}`);
-				}
-			}
-		);
-		len--;
+	const sendEmail = async (email) => {
+		let info = await transporter.sendMail({
+			from: '"ECOHUB Mail Service" <ecohub.mern@gmail.com>', // sender address
+			to: email, // list of receivers
+			subject: "Important Announcement", // Subject line
+			html: `<h1>Hi There! We are back with an announcement!</h1>
+		<h3>
+		<br />
+		${req.body.announcementValue} <br /> 
+		Browse! Buy! Repeat! <br />
+		<br /> Thank you and have a great day!</h3>
+		<h4>Ecohub, India</h4>`,
+		});
+
+		console.log("Message sent: %s", info.messageId);
+	};
+
+	for (let user of users) {
+		// console.log(user.email);
+		sendEmail(user.email);
 	}
 
 	res.sendStatus(200);

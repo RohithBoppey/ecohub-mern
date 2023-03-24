@@ -21,11 +21,12 @@ const ContactSalesManager = (props) => {
 			fullname: fullnameRef.current.value,
 			type: "Contact Sales Manager",
 			message: queryRef.current.value,
-			email: props.user.useremail,
+			email: props.user.email,
 		};
 
 		// sending the details to backend admin messages
 		sendMessageToAdmin(details);
+		alert("Message sent")
 		navigate("/");
 	};
 

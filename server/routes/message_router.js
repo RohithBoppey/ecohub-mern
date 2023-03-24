@@ -71,4 +71,39 @@ message_router.post("/", async (req, res) => {
 	console.log("Message created and sent to Admin Portal");
 });
 
+message_router.get('/:id', async (req, res) => {
+	console.log(req.params.id)
+	const msg = await Message.find({ _id: req.params.id });
+	// console.log(`req recieved ${msg}`)
+	// console.log(msg[0])
+	res.json({ message: msg })
+	// res.send('Done')
+})
+
+// message_router.post('/reply', (req, res) => {
+// 	const email = req.body.email;
+// 	const replyValue = req.body.replyValue
+// 	const nodemailerMailgun = nodemailer.createTransport(mg(auth));
+// 	nodemailerMailgun.sendMail(
+// 		{
+// 			from: "ecohub.mern@gmail.com",
+// 			to: email, // An array if you have multiple recipients.
+// 			subject: "Hey you, awesome!",
+// 			//You can use "html:" to send HTML email content. It's magic!
+// 			html: `<h1>Ecohub..</h1>
+//         <h3>
+//         ${replyValue}
+//         <br /> Thank you and have a great day!</h3>
+//         <h4>Ecohub, India</h4>`,
+// 		},
+// 		(err, info) => {
+// 			if (err) {
+// 				console.log(`Error: ${err}`);
+// 			} else {
+// 				console.log(`Response: ${info}`);
+// 			}
+// 		}
+// 	);
+// })
+
 module.exports = message_router;

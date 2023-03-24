@@ -18,13 +18,15 @@ const ElectricCarDetails = () => {
 	// get details from backend and set state
 	useEffect(() => {
 		const getDetails = async () => {
-			const allVehicles = await fetch("http://localhost:3001/vehicles");
+			const allVehicles = await fetch("http://localhost:5000/vehicles/");
+			console.log(allVehicles);
 			const allVehiclesJSON = await allVehicles.json();
 			console.log(allVehiclesJSON);
 			const requriedVehicle = allVehiclesJSON.filter(
-				(veh) => veh.slug === name
+				(veh) => veh.expand_link === '/'+name
 			);
 			console.log(requriedVehicle[0]);
+			console.log(name);
 			setVehicleDetails(requriedVehicle[0]);
 		};
 		getDetails();

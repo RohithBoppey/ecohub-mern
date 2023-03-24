@@ -15,6 +15,8 @@ const product_router = require("./routes/product_router");
 const message_router = require("./routes/message_router");
 const mailer_router = require("./routes/mailer_routes");
 const article_router = require("./routes/article_router");
+const vehicle_router = require("./routes/vehicle_router");
+const allvehicle_router = require("./routes/allvehicle_router");
 const image_router = require("./routes/image_router");
 
 const accessLogStream = fs.createWriteStream(
@@ -60,7 +62,9 @@ app.use("/admins", admin_router);
 app.use("/products/", product_router);
 app.use("/messages/", message_router);
 app.use("/mailer/", mailer_router);
-app.use("/articles/", article_router);
+app.use('/articles/', article_router);
+app.use('/vehicles', vehicle_router);
+app.use('/allvehicles/',allvehicle_router);
 app.use('/image/', image_router)
 
 // start server

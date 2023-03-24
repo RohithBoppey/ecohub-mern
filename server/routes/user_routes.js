@@ -64,7 +64,8 @@ user_router.post("/", async (req, res) => {
 			},
 			req_type: "",
 		};
-		mailerFunction(details);
+		// mailerFunction(details);
+		// mailerFunction.sendWelcomeEmail([req.body.email]);
 	}
 
 	res.json(user);
@@ -129,6 +130,7 @@ user_router.post("/update-profile", async (req, res) => {
 			city: req.body.city,
 			address: req.body.address,
 			img_url: req.body.image_url,
+			password: req.body.password,
 			updatedAt: Date.now(),
 		}
 		// { new: true }
@@ -163,6 +165,23 @@ user_router.post("/add-to-cart", async (req, res) => {
 			console.log("Present");
 			response = "Already present in the Cart";
 		}
+	} else {
+		response = "Non-valid user";
+	}
+	res.send(response);
+});
+
+user_router.post("/change-to-default", async (req, res) => {
+	const user = await User.find({ email: req.body.email });
+	let response;
+	if (user.length !== 0) {
+		console.log(user[0]);
+		const requiredUser = user[0];
+		await User.updateOne(
+			{ email: requiredUser.email },
+			{ password: "ECOHUB_Default_Password" }
+		);
+		response = "Updated";
 	} else {
 		response = "Non-valid user";
 	}

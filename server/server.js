@@ -31,15 +31,15 @@ mongoose
 	.then(() => console.log("Connected to MongoDB"))
 	.catch((err) => console.error("Could not connect to MongoDB", err));
 
-app.use('/users/', user_router);
-app.use('/admins', admin_router);
-app.use('/products/', product_router);
-app.use('/messages/', message_router);
-app.use('/mailer/', mailer_router);
+app.use("/users/", user_router);
+app.use("/admins", admin_router);
+app.use("/products/", product_router);
+app.use("/messages/", message_router);
+app.use("/mailer/", mailer_router);
 app.use('/articles/', article_router);
 
 // start server
 const PORT = 5000;
 app.listen(5000, () => {
-	console.log("Server started on port 5000");
+	console.log(`Server started on port ${PORT}`);
 });

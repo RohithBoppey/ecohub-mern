@@ -1,16 +1,28 @@
 const express = require("express");
 const User = require("../models/User");
 const user_router = express.Router();
-const bcrypt = require('bcrypt')
-const mailerFunction = require("../util/mailer");
+const bcrypt = require("bcrypt");
+
+const nodemailer = require("nodemailer");
 
 function hashpassword(password) {
-	const salt = bcrypt.genSaltSync()
-	return bcrypt.hashSync(password, salt)
+	const salt = bcrypt.genSaltSync();
+	return bcrypt.hashSync(password, salt);
 }
 
+let transporter = nodemailer.createTransport({
+	host: "smtp.gmail.com", // SMTP server address (usually mail.your-domain.com)
+	port: 465, // Port for SMTP (usually 465)
+	secure: true, // Usually true if connecting to port 465
+	auth: {
+		user: "ecohub.v3@gmail.com", // Your email address
+		pass: "gqvozdspfmcxvwif", // Password (for gmail, your app password)
+		// ⚠️ For better security, use environment variables set on the server for these values when deploying
+	},
+});
+
 function comparepassword(raw, hash) {
-	return bcrypt.compareSync(raw, hash)
+	return bcrypt.compareSync(raw, hash);
 }
 
 user_router.get("/", async (req, res) => {
@@ -56,16 +68,25 @@ user_router.post("/", async (req, res) => {
 		});
 		await user.save();
 		console.log("User saved!");
-		const details = {
-			email: req.body.email,
-			type_of_email: "welcome",
-			others: {
-				user_id: user._id,
-			},
-			req_type: "",
+		const sendEmail = async () => {
+			let info = await transporter.sendMail({
+				from: '"ECOHUB Mail Service" <ecohub.mern@gmail.com>', // sender address
+				to: req.body.email, // list of receivers
+				subject: "Welcoming Email", // Subject line
+				html: `<h1>Welcome to ECOHUB</h1>
+			<h3>
+			Welcome to ECOHUB! We are so thrilled to have you here! Here is your user ID: <i>${user._id}</i>. <br />
+			You can use this ID whenever needed. <br /> 
+			Browse! Buy! Repeat! <br />
+			We welcome you again to ECOHUB!
+			<br /> Thank you and have a great day!</h3>
+			<h4>Ecohub, India</h4>`,
+			});
+
+			console.log("Message sent: %s", info.messageId);
 		};
-		// mailerFunction(details);
-		// mailerFunction.sendWelcomeEmail([req.body.email]);
+
+		sendEmail();
 	}
 
 	res.json(user);
@@ -76,23 +97,18 @@ user_router.post("/signin", async (req, res) => {
 		email: req.body.email,
 	});
 
-	console.log(user)
-	if( user.length > 0){
+	console.log(user);
+	if (user.length > 0) {
 		console.log(req.body);
 		console.log(user);
-		if (comparepassword(req.body.password, user[0].password)){
+		if (comparepassword(req.body.password, user[0].password)) {
 			res.json(user);
-		}
-		else {
-			
+		} else {
 			res.json([]);
 		}
-	} 
-	else{
-		
+	} else {
 		res.json([]);
 	}
-	
 });
 
 user_router.put("/:id", async (req, res) => {
@@ -179,8 +195,29 @@ user_router.post("/change-to-default", async (req, res) => {
 		const requiredUser = user[0];
 		await User.updateOne(
 			{ email: requiredUser.email },
-			{ password: "ECOHUB_Default_Password" }
+			{
+				password:
+					"$2b$10$.tH.K5JrhKKFE2c/QM/LOOcFwIk.o4l3BNaTeoHHgHuMm93vYZVHK",
+			}
 		);
+		const sendEmail = async () => {
+			let info = await transporter.sendMail({
+				from: '"ECOHUB Mail Service" <ecohub.mern@gmail.com>', // sender address
+				to: req.body.email, // list of receivers
+				subject: "OTP", // Subject line
+				html: `<h1>Hello User</h1>
+			<h3>
+			Since you have forgotten your password, Here is your one time password: "ECOHUB_Default_Password"
+			<br /> Login using this password and change it as soon as possible.
+			<br /> Thank you and have a great day!</h3>
+			<h4>Ecohub, India</h4>`,
+			});
+
+			console.log("Message sent: %s", info.messageId);
+		};
+
+		sendEmail();
+
 		response = "Updated";
 	} else {
 		response = "Non-valid user";

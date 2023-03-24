@@ -3,11 +3,7 @@ const mailer_router = express.Router();
 
 const totp = require("totp-generator");
 const nodemailer = require("nodemailer");
-const mg = require("nodemailer-mailgun-transport");
 const OTP = require("../models/OTP");
-
-let verifytoken = "";
-let verifyemail = "";
 
 let transporter = nodemailer.createTransport({
 	host: "smtp.gmail.com", // SMTP server address (usually mail.your-domain.com)

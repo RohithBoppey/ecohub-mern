@@ -82,6 +82,3 @@ export function Reply() {
             </container>
 
         </>
-
-    );
-}

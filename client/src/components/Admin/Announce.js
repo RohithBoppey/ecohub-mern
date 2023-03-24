@@ -13,17 +13,18 @@ const useStyles = createStyles((theme) => ({
 export function Announce() {
 	const navigate = useNavigate();
 
-	const { classes, theme } = useStyles();
+	const { classes } = useStyles();
 
 	const announcementRef = useRef();
 
 	const submitHandler = (event) => {
-		console.log(" submit handler in action");
+		console.log("Submit handler in action");
 		event.preventDefault();
 		const announcement = {
 			announcementValue: announcementRef.current.value,
 		};
 		axios.post("http://localhost:5000/admins/announce", announcement);
+		alert('Announcement Posted!');
 		navigate("/admin/home");
 	};
 

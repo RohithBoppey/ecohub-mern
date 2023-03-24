@@ -24,6 +24,7 @@ import ForgotPassword from "./pages/Forgot Password/ForgotPassword";
 import Updateprofile from "./pages/UpdateProfile/Updateprofile";
 import AnnouncePage from "./pages/Admin/AnnouncePage";
 import VerifyOTP from "./pages/Verify OTP/VerifyOTP";
+import Replypage from "./pages/Admin/Replypage";
 
 /* 
 	This is the main file.
@@ -461,6 +462,25 @@ function App() {
 						/>
 					) : (
 						<AnnouncePage onLogout={adminLogoutHandler} />
+					)
+					// <AdminLoginPage
+					// 	onSignin={adminSigninHandler}
+					// 	onLogout={adminLogoutHandler}
+					// />
+				}
+				exact
+			/>
+
+			<Route
+				path="/admin/reply/:id"
+				element={
+					Object.keys(adminDetails).length === 0 ? (
+						<AdminLoginPage
+							onSignin={adminSigninHandler}
+							onLogout={adminLogoutHandler}
+						/>
+					) : (
+						<Replypage onLogout={adminLogoutHandler} />
 					)
 					// <AdminLoginPage
 					// 	onSignin={adminSigninHandler}

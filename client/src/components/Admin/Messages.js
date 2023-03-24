@@ -50,11 +50,12 @@ const Messages = (props) => {
 							</td>
 							<th className="th-sd">
 								<a
-									href={`https://mail.google.com/mail/u/0/?fs=1&tf=cm&source=mailto&to=${message.message_details.email}`}
+									href={`http://localhost:3000/admin/reply/${message.message_details._id}`}
 									target="__blank"
-									onClick={() =>
-										props.onRemoveMessage(message.message_details._id)
-									}>
+									// onClick={() =>
+									// 	props.onRemoveMessage(message.message_details._id)
+									// }
+									>
 									<center>
 										<button
 											name="delete"

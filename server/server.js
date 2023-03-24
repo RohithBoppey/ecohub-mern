@@ -4,14 +4,6 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
-const Sib = require("sib-api-v3-sdk");
-require("dotenv").config();
-const client = Sib.ApiClient.instance;
-const apiKey = client.authentications["api-key"];
-apiKey.apiKey = process.env.API_KEY;
-
-// console.log(process.env.API_KEY)
-
 // All different routes for the application
 const user_router = require("./routes/user_routes");
 const admin_router = require("./routes/admin_router");

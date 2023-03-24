@@ -3,11 +3,11 @@ const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-var morgan = require("morgan");
-var path = require("path");
-var uuid = require("node-uuid");
-var fs = require("fs");
-var accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {
+const morgan = require("morgan");
+const path = require("path");
+const uuid = require("node-uuid");
+const fs = require("fs");
+const accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {
 	flags: "a",
 });
 

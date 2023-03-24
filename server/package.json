@@ -21,6 +21,7 @@
     "nodemailer-mailgun-transport": "^2.1.5",
     "nodemon": "^2.0.21",
     "sib-api-v3-sdk": "^8.5.0",
+    "superagent": "^8.0.9",
     "totp-generator": "^0.0.14"
   }
 }

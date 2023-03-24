@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 
@@ -6,8 +7,15 @@ import "./user-profile.css";
 
 const UserDetails = (props) => {
 	// console.log(props.user)
-
+	const userIsLoggedIn = useSelector((state) => state.userIsLoggedIn);
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (!userIsLoggedIn) {
+			navigate("/signin");
+		}
+	}, []);
+
 	const updateHandler = () => {
 		navigate("/update-profile");
 	};

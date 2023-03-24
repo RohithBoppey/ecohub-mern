@@ -64,7 +64,8 @@ user_router.post("/", async (req, res) => {
 			},
 			req_type: "",
 		};
-		mailerFunction(details);
+		// mailerFunction(details);
+		// mailerFunction.sendWelcomeEmail([req.body.email]);
 	}
 
 	res.json(user);
@@ -125,10 +126,11 @@ user_router.post("/update-profile", async (req, res) => {
 			fullname: req.body.fullname,
 			username: req.body.username,
 			email: req.body.email,
-			phone_number: req.body.phone_number,
+			phone_number: req.body.phoneNumber,
 			city: req.body.city,
 			address: req.body.address,
 			img_url: req.body.image_url,
+			password: req.body.password,
 			updatedAt: Date.now(),
 		}
 		// { new: true }
@@ -136,6 +138,75 @@ user_router.post("/update-profile", async (req, res) => {
 	const message = "User updated successfully";
 	console.log(message);
 	res.json(user);
+});
+
+user_router.post("/get-cart", async (req, res) => {
+	const id = req.body.id;
+	console.log(id);
+	const results = await User.find({ _id: id }).populate("cart");
+	console.log(results);
+	res.json({ results });
+});
+
+user_router.post("/add-to-cart", async (req, res) => {
+	console.log(req.body);
+	const user = await User.find({ _id: req.body.user_id });
+	let response;
+	if (user.length !== 0) {
+		// then the first one in array is the user
+		const cart = user[0].cart;
+		if (!cart.includes(req.body.product_id)) {
+			// we need to add into the array
+			cart.push(req.body.product_id);
+			await User.updateOne({ _id: req.body.user_id }, { cart: cart });
+			console.log("Added");
+			response = "Added into the Cart";
+		} else {
+			console.log("Present");
+			response = "Already present in the Cart";
+		}
+	} else {
+		response = "Non-valid user";
+	}
+	res.send(response);
+});
+
+user_router.post("/change-to-default", async (req, res) => {
+	const user = await User.find({ email: req.body.email });
+	let response;
+	if (user.length !== 0) {
+		console.log(user[0]);
+		const requiredUser = user[0];
+		await User.updateOne(
+			{ email: requiredUser.email },
+			{ password: "ECOHUB_Default_Password" }
+		);
+		response = "Updated";
+	} else {
+		response = "Non-valid user";
+	}
+	res.send(response);
+});
+
+user_router.post("/remove-from-cart", async (req, res) => {
+	// console.log(req.body);
+	const user = await User.find({ _id: req.body.user_id });
+	let response;
+	if (user.length !== 0) {
+		// then the first one in array is the user
+		let cart = user[0].cart;
+		console.log(cart);
+		cart = cart.filter(
+			(item) => item._id.toString() !== req.body.product_id
+		);
+		console.log(cart);
+		await User.updateOne({ _id: req.body.user_id }, { cart: cart });
+		console.log("Removed from cart");
+		response = "Removed from Cart";
+	} else {
+		response = "Non-valid user";
+	}
+	res.send(response);
 });
 
 module.exports = user_router;

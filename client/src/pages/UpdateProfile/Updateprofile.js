@@ -14,6 +14,7 @@ const Updateprofile = (props) => {
 	const emailRef = useRef();
 	const imageRef = useRef();
 	const addressRef = useRef();
+	const passwordRef = useRef();
 
 	const updatehandler = async (event) => {
 		event.preventDefault();
@@ -23,13 +24,14 @@ const Updateprofile = (props) => {
 			username: usernameRef.current.value,
 			city: cityRef.current.value,
 			phoneNumber: phoneNumberRef.current.value,
-			email: emailRef.current.value,
+			email: props.user.email,
 			image_url: imageRef.current.value,
 			address: addressRef.current.value,
+			password: passwordRef.current.value,
 		};
 
-		axios.post("http://localhost:5000/users/update-profile", details);
-
+		await axios.post("http://localhost:5000/users/update-profile", details);
+		alert("Successfully updated profile");
 		navigate("/");
 	};
 
@@ -88,6 +90,7 @@ const Updateprofile = (props) => {
 										</div>
 									</div>
 								</div>
+
 								<div className="row row-space">
 									<div className="col">
 										<div className="input-group">
@@ -108,22 +111,31 @@ const Updateprofile = (props) => {
 											/>
 										</div>
 									</div>
-									{/* <div className="col-2">
-                                      <div className="input-group">
-                                          <label className="label">Gender:</label>
-                                          <div className="p-t-10">
-                                              <label className="radio-container m-r-45">Male
-                                                  <input type="radio" checked="checked" name="gender" value="Male"/>
-                                                      <span className="checkmark"></span>
-                                              </label>
-                                              <label className="radio-container">Female
-                                                  <input type="radio" name="gender" value="Female"/>
-                                                      <span className="checkmark"></span>
-                                              </label>
-                                          </div>
-                                      </div>
-                                  </div> */}
 								</div>
+
+								<div className="row row-space">
+									<div className="col">
+										<div className="input-group">
+											<label className="label">
+												Password:
+											</label>
+											<input
+												type="text"
+												placeholder="Email"
+												id="password"
+												name="password"
+												className="input"
+												defaultValue={
+													props.user.password
+												}
+												ref={passwordRef}
+												autoComplete="off"
+												required
+											/>
+										</div>
+									</div>
+								</div>
+
 								<div className="row row-space">
 									<div className="col-2">
 										<div className="input-group">

@@ -3,7 +3,6 @@ const mailer_router = express.Router();
 
 const totp = require("totp-generator");
 const nodemailer = require("nodemailer");
-const mg = require("nodemailer-mailgun-transport");
 const OTP = require("../models/OTP");
 
 let transporter = nodemailer.createTransport({

@@ -6,16 +6,13 @@ const nodemailer = require("nodemailer");
 const mg = require("nodemailer-mailgun-transport");
 const OTP = require("../models/OTP");
 
-let verifytoken = "";
-let verifyemail = "";
-
 let transporter = nodemailer.createTransport({
 	host: "smtp.gmail.com", // SMTP server address (usually mail.your-domain.com)
 	port: 465, // Port for SMTP (usually 465)
 	secure: true, // Usually true if connecting to port 465
 	auth: {
-		user: "ecohub.mern@gmail.com", // Your email address
-		pass: "tqesadbuhhysfbax", // Password (for gmail, your app password)
+		user: "ecohub.v3@gmail.com", // Your email address
+		pass: "gqvozdspfmcxvwif", // Password (for gmail, your app password)
 		// ⚠️ For better security, use environment variables set on the server for these values when deploying
 	},
 });

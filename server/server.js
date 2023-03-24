@@ -3,15 +3,17 @@ const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-var morgan = require('morgan')
-var path = require('path')
-var uuid = require('node-uuid')
-var fs = require('fs')
-var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+var morgan = require("morgan");
+var path = require("path");
+var uuid = require("node-uuid");
+var fs = require("fs");
+var accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {
+	flags: "a",
+});
 
-morgan.token('id', function getId(req) {
-	return req.id
-})
+morgan.token("id", function getId(req) {
+	return req.id;
+});
 
 // All different routes for the application
 const user_router = require("./routes/user_routes");
@@ -28,11 +30,11 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use(assignId)
-app.use(morgan(':id :method :url :response-time', { stream: accessLogStream }))
+app.use(assignId);
+app.use(morgan(":id :method :url :response-time", { stream: accessLogStream }));
 function assignId(req, res, next) {
-	req.id = uuid.v4()
-	next()
+	req.id = uuid.v4();
+	next();
 }
 // set up MongoDB connection
 mongoose
@@ -51,7 +53,7 @@ app.use("/admins", admin_router);
 app.use("/products/", product_router);
 app.use("/messages/", message_router);
 app.use("/mailer/", mailer_router);
-app.use('/articles/', article_router);
+app.use("/articles/", article_router);
 
 // start server
 const PORT = 5000;

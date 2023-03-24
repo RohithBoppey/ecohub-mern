@@ -4,6 +4,14 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
+const Sib = require("sib-api-v3-sdk");
+require("dotenv").config();
+const client = Sib.ApiClient.instance;
+const apiKey = client.authentications["api-key"];
+apiKey.apiKey = process.env.API_KEY;
+
+// console.log(process.env.API_KEY)
+
 // All different routes for the application
 const user_router = require("./routes/user_routes");
 const admin_router = require("./routes/admin_router");
@@ -30,14 +38,14 @@ mongoose
 	.then(() => console.log("Connected to MongoDB"))
 	.catch((err) => console.error("Could not connect to MongoDB", err));
 
-app.use('/users/', user_router);
-app.use('/admins/', admin_router);
-app.use('/products/', product_router);
-app.use('/messages/', message_router);
-app.use('/mailer/', mailer_router);
+app.use("/users/", user_router);
+app.use("/admins/", admin_router);
+app.use("/products/", product_router);
+app.use("/messages/", message_router);
+app.use("/mailer/", mailer_router);
 
 // start server
 const PORT = 5000;
 app.listen(5000, () => {
-	console.log("Server started on port 5000");
+	console.log(`Server started on port ${PORT}`);
 });

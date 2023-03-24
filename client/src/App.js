@@ -23,6 +23,7 @@ import { useDispatch } from "react-redux";
 import ForgotPassword from "./pages/Forgot Password/ForgotPassword";
 import Updateprofile from "./pages/UpdateProfile/Updateprofile";
 import AnnouncePage from "./pages/Admin/AnnouncePage";
+import VerifyOTP from "./pages/Verify OTP/VerifyOTP";
 
 /* 
 	This is the main file.
@@ -246,6 +247,7 @@ function App() {
 				exact
 			/>
 			<Route path="/forgot-password" element={<ForgotPassword />} exact />
+			<Route path="/verify-otp" element={<VerifyOTP />} exact />
 			<Route
 				path="/user-profile"
 				element={
@@ -392,7 +394,7 @@ function App() {
 				}
 				exact
 			/>
-			{console.log(adminDetails)}
+			{/* {console.log(adminDetails)} */}
 			<Route
 				path="/admin/home"
 				element={

@@ -3,6 +3,15 @@ const mongoose = require("mongoose");
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+var morgan = require('morgan')
+var path = require('path')
+var uuid = require('node-uuid')
+var fs = require('fs')
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+
+morgan.token('id', function getId(req) {
+	return req.id
+})
 
 // All different routes for the application
 const user_router = require("./routes/user_routes");
@@ -19,6 +28,12 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
+app.use(assignId)
+app.use(morgan(':id :method :url :response-time', { stream: accessLogStream }))
+function assignId(req, res, next) {
+	req.id = uuid.v4()
+	next()
+}
 // set up MongoDB connection
 mongoose
 	.connect(

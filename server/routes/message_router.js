@@ -79,24 +79,18 @@ message_router.get("/:id", async (req, res) => {
 	// res.send('Done')
 });
 
-
-
-message_router.get('/:id', async (req, res) => {
-	console.log(req.params.id)
+message_router.get("/:id", async (req, res) => {
+	console.log(req.params.id);
 	const msg = await Message.find({ _id: req.params.id });
-	// console.log(`req recieved ${msg}`)
-	// console.log(msg[0])
-	console.log(msg[0])
-	res.json({ message: msg })
+	console.log(msg[0]);
+	res.json({ message: msg });
+});
 
-	// res.send('Done')
-})
-
-message_router.post('/reply',async (req,res)=>{
-	const messagevalue=req.body.replyValue;
-	const email=req.body.email;
-	console.log(email)
-	console.log(messagevalue)
+message_router.post("/reply", async (req, res) => {
+	const messagevalue = req.body.replyValue;
+	const email = req.body.email;
+	console.log(email);
+	console.log(messagevalue);
 	let info = await transporter.sendMail({
 		from: '"ECOHUB Mail Service" <ecohub.mern@gmail.com>', // sender address
 		to: email, // list of receivers
@@ -107,16 +101,15 @@ message_router.post('/reply',async (req,res)=>{
 	    <br /> Thank you and have a great day!</h3>
 	    <h4>Ecohub, India</h4>`,
 	});
- 
+
 	console.log("Message sent: %s", info.messageId);
 
-	if(info){
-		await Message.deleteOne({ email:req.body.email});
-		res.send('reply sent'); 
+	if (info) {
+		await Message.deleteOne({ email: req.body.email });
+		res.send("reply sent");
+	} else {
+		res.send("reply not sent");
 	}
-	else{
-		res.send('reply not sent')
-	}
-})
+});
 
 module.exports = message_router;

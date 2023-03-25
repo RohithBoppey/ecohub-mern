@@ -101,7 +101,7 @@ user_router.put("/:id", async (req, res) => {
 		{
 			name: req.body.name,
 			email: req.body.email,
-			password: req.body.password,
+			password: hashpassword(req.body.password),
 			updatedAt: Date.now(),
 		},
 		{ new: true }
@@ -130,7 +130,7 @@ user_router.post("/update-profile", async (req, res) => {
 			city: req.body.city,
 			address: req.body.address,
 			img_url: req.body.image_url,
-			password: req.body.password,
+			password: hashpassword(req.body.password),
 			updatedAt: Date.now(),
 		}
 		// { new: true }

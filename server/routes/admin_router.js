@@ -32,11 +32,21 @@ admin_router.post("/announce", async (req, res) => {
 			to: email, // list of receivers
 			subject: "Important Announcement", // Subject line
 			html: `<h1>Hi There! We are back with an announcement!</h1>
-		<h3>
+		<h2>
+		We are very happy to announce
+		</h2>
+		<p>
+        <span style="color: rgb(165, 122, 13)">
+            <i>
+                "${req.body.announcementValue}"
+            </i>
+        </span>
 		<br />
-		${req.body.announcementValue} <br /> 
+    	</p>
+		<h4>
 		Browse! Buy! Repeat! <br />
-		<br /> Thank you and have a great day!</h3>
+		<br /> Thank you and have a great day!
+		</h4>
 		<h4>Ecohub, India</h4>`,
 		});
 

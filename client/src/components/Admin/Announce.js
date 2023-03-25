@@ -39,6 +39,7 @@ export function Announce() {
 					pt="md"
 					pb="md"
 					autosize
+					size='lg'
 					minRows={4}
 					ref={announcementRef}
 				/>

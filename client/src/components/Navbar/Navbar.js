@@ -54,18 +54,12 @@ const Navbar = (props) => {
 								Contact us
 							</NavLink>
 						</li>
-
 						{userIsLoggedIn ? (
 							<li className="dropdown">
 								<NavLink
 									to="#"
 									data-toggle="dropdown"
 									className="dropdown-toggle user-action">
-									<img
-										className="avatar"
-										src={userDetails.img_url}
-										alt="Avatar"
-									/>{" "}
 									<b className="caret">
 										{userDetails.username}
 									</b>

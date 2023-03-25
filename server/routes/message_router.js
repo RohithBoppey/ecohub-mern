@@ -1,8 +1,9 @@
 const express = require("express");
-const mongoose = require("mongoose");
 const Message = require("../models/Message");
 const User = require("../models/User");
 const message_router = express.Router();
+const dotenv = require("dotenv");
+dotenv.config();
 const nodemailer = require("nodemailer");
 
 let transporter = nodemailer.createTransport({
@@ -10,13 +11,11 @@ let transporter = nodemailer.createTransport({
 	port: 465, // Port for SMTP (usually 465)
 	secure: true, // Usually true if connecting to port 465
 	auth: {
-		user: "ecohub.v3@gmail.com", // Your email address
-		pass: "gqvozdspfmcxvwif", // Password (for gmail, your app password)
+		user: process.env.GMAIL, // Your email address
+		pass: process.env.GMAIL_PASS, // Password (for gmail, your app password)
 		// ⚠️ For better security, use environment variables set on the server for these values when deploying
 	},
 });
-
-
 message_router.get("/", async (req, res) => {
 	const messages = await Message.find();
 	const allMessages = [];
@@ -42,33 +41,56 @@ message_router.delete("/:id", async (req, res) => {
 	res.json({ message });
 });
 
-message_router.post('/', async (req, res) => {
+message_router.post("/", async (req, res) => {
 	const message = new Message({
 		email: req.body.email,
-		fullaname: req.body.fullname,
+		fullname: req.body.fullname,
 		message: req.body.message,
 		type: req.body.type,
-	})
+	});
 	await message.save();
-	console.log("Message created and sent to Admin Portal")
-})
+	const sendEmail = async () => {
+		let info = await transporter.sendMail({
+			from: '"ECOHUB Mail Service" <ecohub.mern@gmail.com>', // sender address
+			to: req.body.email, // list of receivers
+			subject: "New Request", // Subject line
+			html: `<h1>Hello User</h1>
+	    <h3>
+	    Hello User, We have received your request for ${req.body.type} : ${message._id}, saying : "${message.message}" 
+		Please bear with us until one of our team contacts you.
+	    <br /> Thank you and have a great day!</h3>
+	    <h4>Ecohub, India</h4>`,
+		});
 
-message_router.get('/:id', async (req, res) => {
-	console.log(req.params.id)
+		console.log("Message sent: %s", info.messageId);
+	};
+
+	sendEmail();
+
+	console.log("Message created and sent to Admin Portal");
+});
+
+message_router.get("/:id", async (req, res) => {
+	console.log(req.params.id);
 	const msg = await Message.find({ _id: req.params.id });
 	// console.log(`req recieved ${msg}`)
 	// console.log(msg[0])
-	console.log(msg[0])
-	res.json({ message: msg })
-
+	res.json({ message: msg });
 	// res.send('Done')
-})
+});
 
-message_router.post('/reply',async (req,res)=>{
-	const messagevalue=req.body.replyValue;
-	const email=req.body.email;
-	console.log(email)
-	console.log(messagevalue)
+message_router.get("/:id", async (req, res) => {
+	console.log(req.params.id);
+	const msg = await Message.find({ _id: req.params.id });
+	console.log(msg[0]);
+	res.json({ message: msg });
+});
+
+message_router.post("/reply", async (req, res) => {
+	const messagevalue = req.body.replyValue;
+	const email = req.body.email;
+	console.log(email);
+	console.log(messagevalue);
 	let info = await transporter.sendMail({
 		from: '"ECOHUB Mail Service" <ecohub.mern@gmail.com>', // sender address
 		to: email, // list of receivers
@@ -79,16 +101,15 @@ message_router.post('/reply',async (req,res)=>{
 	    <br /> Thank you and have a great day!</h3>
 	    <h4>Ecohub, India</h4>`,
 	});
- 
+
 	console.log("Message sent: %s", info.messageId);
 
-	if(info){
-		await Message.deleteOne({ email:req.body.email});
-		res.send('reply sent'); 
+	if (info) {
+		await Message.deleteOne({ email: req.body.email });
+		res.send("reply sent");
+	} else {
+		res.send("reply not sent");
 	}
-	else{
-		res.send('reply not sent')
-	}
-})
+});
 
 module.exports = message_router;

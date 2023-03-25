@@ -6,7 +6,7 @@ const Replypage = (props) => {
     return (
         <div>
             <AdminNavbar onLogout={props.onLogout} />
-            <Reply/>
+            <Reply />
         </div>
     );
 };

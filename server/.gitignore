@@ -1,5 +1,4 @@
 /node_modules
 .env
-/log/access.log
-uploads/
-*.log
+access.log
+/uploads

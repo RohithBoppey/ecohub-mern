@@ -49,8 +49,7 @@ mailer_router.post("/getotp", async (req, res) => {
 
 	sendEmail();
 
-	w
-	res.send(response);
+	res.sendStatus(200);
 });
 
 mailer_router.post("/verifyotp", async (req, res) => {

@@ -72,7 +72,7 @@ const UserCart = (props) => {
 		});
 	};
 
-	const purchase = () => {
+	const purchase = async () => {
 		const text = `\n\nYour bill is: $${total}\n\nYour items are: \n${finalCart.map(
 			(cartItem) => {
 				return `${cartItem.name} - ${cartItem.count}\n`;
@@ -81,6 +81,9 @@ const UserCart = (props) => {
 		alert(text);
 		dispatch({ type: "clear-cart" });
 		setFinalCart([]);
+		await Axios.post("http://localhost:5000/users/empty-cart", {
+			user_id: userDetails._id
+		})
 		navigate("/show-cart");
 	};
 

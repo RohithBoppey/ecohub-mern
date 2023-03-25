@@ -247,4 +247,19 @@ user_router.post("/remove-from-cart", async (req, res) => {
 	res.send(response);
 });
 
+user_router.post("/empty-cart", async (req, res) => {
+	console.log(req.body);
+	const user = await User.find({ _id: req.body.user_id });
+	let response;
+	if (user.length !== 0) {
+		// then the first one in array is the user
+		await User.updateOne({ _id: req.body.user_id }, { cart: [] });
+		console.log("Emptied Cart");
+		response = "Emptied Cart";
+	} else {
+		response = "Non-valid user";
+	}
+	res.send(response);
+});
+
 module.exports = user_router;

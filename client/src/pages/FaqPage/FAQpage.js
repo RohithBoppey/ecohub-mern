@@ -57,8 +57,8 @@ export default function FAQpage(props) {
       email: props.user.email,
     };
     // Send the current details to the admin -> messages using function
-    await sendMessageToAdmin(details);
-    // alert('Message Created and Sent');
+    sendMessageToAdmin(details);
+    alert('Message Created and Sent');
     navigate("/");
   };
 

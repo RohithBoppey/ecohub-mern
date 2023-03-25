@@ -65,6 +65,7 @@ export function Reply() {
 						pb="md"
 						autosize
 						minRows={2}
+						size = 'lg'
 						readOnly
 						defaultValue={message.message}
 					/>
@@ -77,9 +78,10 @@ export function Reply() {
 							pb="md"
 							autosize
 							minRows={4}
+							size = 'lg'
 							ref={replyRef}
 						/>
-						<Button type="submit">reply</Button>
+						<Button type="submit" size='lg'>Reply</Button>
 					</form>
 				</Container>
 			</container>

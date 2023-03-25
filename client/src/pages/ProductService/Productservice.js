@@ -28,7 +28,8 @@ const Productservice = (props) => {
 		};
 
 		// sending the details to backend admin messages
-		await sendMessageToAdmin(details);
+		sendMessageToAdmin(details);
+		alert('Message Sent')
 		navigate("/");
 	};
 

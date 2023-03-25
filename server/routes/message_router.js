@@ -56,7 +56,7 @@ message_router.post("/", async (req, res) => {
 			subject: "New Request", // Subject line
 			html: `<h1>Hello User</h1>
 	    <h3>
-	    Hello User, We have received your request for ${req.body.type} : ${message._id}, saying : "${message.message}" 
+	    Hello User, We have received your request for <u>${req.body.type}</u> : ${message._id}, saying : "${message.message}" 
 		Please bear with us until one of our team contacts you.
 	    <br /> Thank you and have a great day!</h3>
 	    <h4>Ecohub, India</h4>`,
@@ -95,9 +95,18 @@ message_router.post("/reply", async (req, res) => {
 		from: '"ECOHUB Mail Service" <ecohub.mern@gmail.com>', // sender address
 		to: email, // list of receivers
 		subject: "Reply to your query", // Subject line
-		html: `<h1>Hello User</h1>
+		html: 
+		`
+		<h2>Thank you for reaching out to us!</h2>
+		<p>
+        We have received a request from you saying:
+        <span style="color: rgb(165, 122, 13)">
+            <i>
+                "${messagevalue}"
+            </i>
+        </span>
+    	</p>
 	    <h3>
-	   ${messagevalue}
 	    <br /> Thank you and have a great day!</h3>
 	    <h4>Ecohub, India</h4>`,
 	});

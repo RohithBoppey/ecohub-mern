@@ -6,7 +6,7 @@ const ElectricCarDetails = () => {
 	// useParams = extract name from URL
 
 	const { name } = useParams();
-	// console.log(name);
+	console.log(name);
 
 	const [vehicleDetails, setVehicleDetails] = useState();
 
@@ -25,8 +25,8 @@ const ElectricCarDetails = () => {
 			const requriedVehicle = allVehiclesJSON.filter(
 				(veh) => veh.expand_link === '/'+name
 			);
-			console.log(requriedVehicle[0]);
-			console.log(name);
+			// console.log(requriedVehicle[0]);
+			// console.log(name);
 			setVehicleDetails(requriedVehicle[0]);
 		};
 		getDetails();

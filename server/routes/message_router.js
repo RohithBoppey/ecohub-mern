@@ -95,16 +95,21 @@ message_router.post("/reply", async (req, res) => {
 		from: '"ECOHUB Mail Service" <ecohub.mern@gmail.com>', // sender address
 		to: email, // list of receivers
 		subject: "Reply to your query", // Subject line
-		html: 
-		`
+		html: `
 		<h2>Thank you for reaching out to us!</h2>
 		<p>
         We have received a request from you saying:
         <span style="color: rgb(165, 122, 13)">
             <i>
-                "${messagevalue}"
+                "${req.body.message}"
             </i>
         </span>
+		<br />
+		<span style="color: rgb(4, 148, 35)">
+        	<i>
+           		"${messagevalue}"
+        	</i>
+    	</span>
     	</p>
 	    <h3>
 	    <br /> Thank you and have a great day!</h3>

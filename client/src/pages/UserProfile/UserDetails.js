@@ -1,19 +1,42 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 
 import "./user-profile.css";
 
+import Axios from "axios";
+
 const UserDetails = (props) => {
 	// console.log(props.user)
 	const userIsLoggedIn = useSelector((state) => state.userIsLoggedIn);
 	const navigate = useNavigate();
 
+	// const [userImage, setUserImage] = useState([]);
+	const [imageURL, setImageURL] = useState("");
+
 	useEffect(() => {
 		if (!userIsLoggedIn) {
-			navigate("/signin");
+			navigate("/register");
 		}
+		const getUserPhoto = async () => {
+			const response = await Axios.post(
+				"http://localhost:5000/image/sendImage",
+				{
+					email: props.user.email,
+				}
+			);
+			console.log(response.data.allImages[0].img);
+			if (response.data.allImages.length !== 0) {
+				const img = response.data.allImages[0].img;
+				const base64String = btoa(
+					String.fromCharCode(...new Uint8Array(img.data.data))
+				);
+				// console.log(base64String);
+				setImageURL(`data:image/png;base64,${base64String}`);
+			}
+		};
+		getUserPhoto();
 	}, []);
 
 	const updateHandler = () => {
@@ -32,7 +55,11 @@ const UserDetails = (props) => {
 							<div className="container-up user-heading round">
 								<a href="/user-profile">
 									<img
-										src={props.user.img_url}
+										src={
+											imageURL.length === 0
+												? props.user.img_url
+												: imageURL
+										}
 										alt="User"
 										className="profileImage"
 									/>

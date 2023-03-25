@@ -92,7 +92,7 @@ const SigninForm = (props) => {
 									</a>
 									<hr className="my-4" />
 
-									<div className="d-grid mb-2">
+									{/* <div className="d-grid mb-2">
 										<button
 											className="btn btn-lg btn-google btn-login fw-bold text-uppercase"
 											type="submit">
@@ -108,7 +108,7 @@ const SigninForm = (props) => {
 											<i className="fab fa-facebook-f me-2"></i>{" "}
 											Log in with Facebook
 										</button>
-									</div>
+									</div> */}
 								</form>
 							</div>
 						</div>

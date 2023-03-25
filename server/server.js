@@ -7,13 +7,6 @@ const morgan = require("morgan");
 const path = require("path");
 const uuid = require("node-uuid");
 const fs = require("fs");
-const accessLogStream = fs.createWriteStream(path.join(__dirname, "access.log"), {
-	flags: "a",
-});
-
-morgan.token("id", function getId(req) {
-	return req.id;
-});
 
 // All different routes for the application
 const user_router = require("./routes/user_routes");
@@ -24,6 +17,18 @@ const mailer_router = require("./routes/mailer_routes");
 const article_router = require("./routes/article_router");
 const vehicle_router = require("./routes/vehicle_router");
 const allvehicle_router = require("./routes/allvehicle_router");
+const image_router = require("./routes/image_router");
+
+const accessLogStream = fs.createWriteStream(
+	path.join(__dirname, "log/access.log"),
+	{
+		flags: "a",
+	}
+);
+
+morgan.token("id", function getId(req) {
+	return req.id;
+});
 
 // create express app
 const app = express();
@@ -50,6 +55,8 @@ mongoose
 	.then(() => console.log("Connected to MongoDB"))
 	.catch((err) => console.error("Could not connect to MongoDB", err));
 
+
+
 app.use("/users/", user_router);
 app.use("/admins", admin_router);
 app.use("/products/", product_router);
@@ -58,6 +65,8 @@ app.use("/mailer/", mailer_router);
 app.use('/articles/', article_router);
 app.use('/vehicles', vehicle_router);
 app.use('/allvehicles/',allvehicle_router);
+app.use('/image/', image_router)
+
 // start server
 const PORT = 5000;
 app.listen(5000, () => {

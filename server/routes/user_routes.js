@@ -2,7 +2,8 @@ const express = require("express");
 const User = require("../models/User");
 const user_router = express.Router();
 const bcrypt = require("bcrypt");
-
+const dotenv = require("dotenv");
+dotenv.config();
 const nodemailer = require("nodemailer");
 
 function hashpassword(password) {
@@ -15,8 +16,8 @@ let transporter = nodemailer.createTransport({
 	port: 465, // Port for SMTP (usually 465)
 	secure: true, // Usually true if connecting to port 465
 	auth: {
-		user: "ecohub.v3@gmail.com", // Your email address
-		pass: "gqvozdspfmcxvwif", // Password (for gmail, your app password)
+		user: process.env.GMAIL, // Your email address
+		pass: process.env.GMAIL_PASS, // Password (for gmail, your app password)
 		// ⚠️ For better security, use environment variables set on the server for these values when deploying
 	},
 });
@@ -202,7 +203,7 @@ user_router.post("/change-to-default", async (req, res) => {
 		);
 		const sendEmail = async () => {
 			let info = await transporter.sendMail({
-				from: '"ECOHUB Mail Service" <ecohub.mern@gmail.com>', // sender address
+				from: `"ECOHUB Mail Service" <ecohub.mern@gmail.com>`, // sender address
 				to: req.body.email, // list of receivers
 				subject: "OTP", // Subject line
 				html: `<h1>Hello User</h1>

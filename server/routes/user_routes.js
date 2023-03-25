@@ -205,7 +205,7 @@ user_router.post("/change-to-default", async (req, res) => {
 			let info = await transporter.sendMail({
 				from: `"ECOHUB Mail Service" <ecohub.mern@gmail.com>`, // sender address
 				to: req.body.email, // list of receivers
-				subject: "OTP", // Subject line
+				subject: "Password Reset", // Subject line
 				html: `<h1>Hello User</h1>
 			<h3>
 			Since you have forgotten your password, Here is your one time password: "ECOHUB_Default_Password"

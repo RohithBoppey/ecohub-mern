@@ -135,7 +135,7 @@ user_router.delete("/:id", async (req, res) => {
 
 user_router.post("/update-profile", async (req, res) => {
 	console.log(`req recieved`);
-	console.log(req.body); 
+	console.log(req.body);
 
 	const user = await User.findOneAndUpdate(
 		{ email: req.body.email },
@@ -154,21 +154,21 @@ user_router.post("/update-profile", async (req, res) => {
 	);
 	const message = "User updated successfully";
 	console.log(message);
-	console.log(user)
+	console.log(user);
 	res.json(user);
 });
 
 user_router.post("/get-cart", async (req, res) => {
-	const id = req.body.id;
-	console.log(id);
-	const results = await User.find({ _id: id }).populate("cart");
+	const email = req.body.email;
+	const results = await User.find({ email: email }).populate("cart");
 	console.log(results);
 	res.json({ results });
 });
 
 user_router.post("/add-to-cart", async (req, res) => {
 	console.log(req.body);
-	const user = await User.find({ _id: req.body.user_id });
+	const user = await User.find({ email: req.body.email });
+	console.log(user);
 	let response;
 	if (user.length !== 0) {
 		// then the first one in array is the user
@@ -176,7 +176,7 @@ user_router.post("/add-to-cart", async (req, res) => {
 		if (!cart.includes(req.body.product_id)) {
 			// we need to add into the array
 			cart.push(req.body.product_id);
-			await User.updateOne({ _id: req.body.user_id }, { cart: cart });
+			await User.updateOne({ email: req.body.email }, { cart: cart });
 			console.log("Added");
 			response = "Added into the Cart";
 		} else {
@@ -220,7 +220,7 @@ user_router.post("/change-to-default", async (req, res) => {
 
 		sendEmail();
 
-		response = "Updated"; 
+		response = "Updated";
 	} else {
 		response = "Non-valid user";
 	}

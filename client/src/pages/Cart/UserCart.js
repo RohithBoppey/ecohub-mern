@@ -36,8 +36,9 @@ const UserCart = (props) => {
 
 	const getCartDetails = async () => {
 		let temp = await Axios.post("http://localhost:5000/users/get-cart", {
-			id: userDetails._id,
+			email: userDetails.email,
 		});
+		console.log(temp)
 		const data = temp.data.results[0];
 		const tempCart = data.cart;
 		const cart = [];
@@ -82,17 +83,20 @@ const UserCart = (props) => {
 		dispatch({ type: "clear-cart" });
 		setFinalCart([]);
 		await Axios.post("http://localhost:5000/users/empty-cart", {
-			user_id: userDetails._id
-		})
+			user_id: userDetails._id,
+		});
 		navigate("/show-cart");
 	};
 
 	const removeItemFromCart = async (id) => {
-		const response = await Axios.post('http://localhost:5000/users/remove-from-cart', {
-			product_id: id,
-			user_id: userDetails._id
-		})
-		navigate('/electric-products');
+		const response = await Axios.post(
+			"http://localhost:5000/users/remove-from-cart",
+			{
+				product_id: id,
+				user_id: userDetails._id,
+			}
+		);
+		navigate("/electric-products");
 	};
 
 	const getDetails = (detail) => {
@@ -112,7 +116,7 @@ const UserCart = (props) => {
 					</div>
 
 					<span className="cart-price cart-column">
-						$ {parseFloat(detail.d_price).toFixed(2)}{" "}
+						₹ {parseFloat(detail.d_price).toFixed(2)}{" "}
 					</span>
 
 					<div className="cart-quantity cart-column">

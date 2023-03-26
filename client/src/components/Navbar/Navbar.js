@@ -49,11 +49,6 @@ const Navbar = (props) => {
 								FAQ's
 							</NavLink>
 						</li>
-						<li className="nav-item">
-							<NavLink className="nav-link" to="/faq">
-								Contact us
-							</NavLink>
-						</li>
 						{userIsLoggedIn ? (
 							<li className="dropdown">
 								<NavLink

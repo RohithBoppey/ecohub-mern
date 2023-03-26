@@ -3,7 +3,7 @@ const express = require("express");
 const image_router = express.Router();
 const fs = require("fs");
 
-const ImageModal = require('../models/ImageModal');
+const ImageModal = require("../models/ImageModal");
 
 const storage = multer.diskStorage({
 	destination: "uploads",
@@ -14,30 +14,39 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-image_router.get("/", (req, res) => {
-	res.send("Working fine");
+image_router.post("/sendImage", async (req, res) => {
+	const allImages = await ImageModal.find({ email: req.body.email });
+	res.json({ allImages });
 });
 
-image_router.post("/", upload.single("testImage"), (req, res) => {
-	// console.log(req.file);
-	const img = new ImageModal({
-		email: req.body.email,
-		name: req.body.name,
-		img: {
-			data: fs.readFileSync("uploads/" + req.file.filename),
-			contentType: "image/png",
-		},
-	});
-	img
-		.save()
-		.then((resp) => {
-			console.log("Image saved in MongoDB");
-		})
-		.catch((err) => {
-			console.log(err, "Error has occured");
+image_router.post("/", upload.single("testImage"), async (req, res) => {
+	console.log(req.file);
+	const user = await ImageModal.find({ email: req.body.email });
+
+	let response;
+	if (user.length !== 0) {
+		response = "Already exists";
+	} else {
+		const img = new ImageModal({
+			email: req.body.email,
+			name: req.body.name,
+			img: {
+				data: fs.readFileSync("uploads/" + req.file.filename),
+				contentType: "image/png",
+			},
 		});
-	res.send("Sent");
-});
+		await img
+			.save()
+			.then(() => {
+				console.log("Image saved in MongoDB");
+			})
+			.catch((err) => {
+				console.log(err, "Error has occured");
+			});
+		response = "Sent";
+	}
 
+	res.send(response);
+});
 
 module.exports = image_router;

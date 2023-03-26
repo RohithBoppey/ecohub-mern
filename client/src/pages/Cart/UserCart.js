@@ -8,7 +8,7 @@ import "./Cart.css";
 
 const UserCart = (props) => {
 	const userDetails = useSelector((state) => state.userDet);
-	console.log(userDetails);
+	// console.log(userDetails);
 	const tempCart = useSelector((state) => state.cart);
 	const navigate = useNavigate();
 
@@ -20,7 +20,7 @@ const UserCart = (props) => {
 		cart.push({ ...cartItem, count: 1 });
 	});
 
-	console.log(cart);
+	// console.log(cart);
 
 	const calculateTotal = () => {
 		let t = 0;
@@ -44,7 +44,7 @@ const UserCart = (props) => {
 		tempCart.forEach((cartItem) => {
 			cart.push({ ...cartItem, count: 1 });
 		});
-		console.log(cart);
+		// console.log(cart);
 		setFinalCart(cart);
 	};
 
@@ -72,7 +72,7 @@ const UserCart = (props) => {
 		});
 	};
 
-	const purchase = () => {
+	const purchase = async () => {
 		const text = `\n\nYour bill is: $${total}\n\nYour items are: \n${finalCart.map(
 			(cartItem) => {
 				return `${cartItem.name} - ${cartItem.count}\n`;
@@ -81,6 +81,9 @@ const UserCart = (props) => {
 		alert(text);
 		dispatch({ type: "clear-cart" });
 		setFinalCart([]);
+		await Axios.post("http://localhost:5000/users/empty-cart", {
+			user_id: userDetails._id
+		})
 		navigate("/show-cart");
 	};
 

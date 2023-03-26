@@ -205,7 +205,7 @@ user_router.post("/change-to-default", async (req, res) => {
 			let info = await transporter.sendMail({
 				from: `"ECOHUB Mail Service" <ecohub.mern@gmail.com>`, // sender address
 				to: req.body.email, // list of receivers
-				subject: "OTP", // Subject line
+				subject: "Password Reset", // Subject line
 				html: `<h1>Hello User</h1>
 			<h3>
 			Since you have forgotten your password, Here is your one time password: "ECOHUB_Default_Password"
@@ -241,6 +241,21 @@ user_router.post("/remove-from-cart", async (req, res) => {
 		await User.updateOne({ _id: req.body.user_id }, { cart: cart });
 		console.log("Removed from cart");
 		response = "Removed from Cart";
+	} else {
+		response = "Non-valid user";
+	}
+	res.send(response);
+});
+
+user_router.post("/empty-cart", async (req, res) => {
+	console.log(req.body);
+	const user = await User.find({ _id: req.body.user_id });
+	let response;
+	if (user.length !== 0) {
+		// then the first one in array is the user
+		await User.updateOne({ _id: req.body.user_id }, { cart: [] });
+		console.log("Emptied Cart");
+		response = "Emptied Cart";
 	} else {
 		response = "Non-valid user";
 	}

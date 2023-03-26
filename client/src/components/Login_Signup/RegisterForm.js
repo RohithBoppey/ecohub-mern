@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
+import Axios from "axios";
 
 const AutoCapitalizeWords = (givenString) => {
 	const words = givenString.split(" ");
@@ -6,11 +7,13 @@ const AutoCapitalizeWords = (givenString) => {
 		words[i] = words[i][0].toUpperCase() + words[i].substr(1);
 	}
 	const newWord = words.join(" ");
-	console.log(newWord)
+	console.log(newWord);
 	return newWord;
 };
 
 const RegisterForm = (props) => {
+	const [file, setFile] = useState();
+
 	// Using Refs for input tags
 	const usernameRef = useRef();
 	const fullnameRef = useRef();
@@ -22,6 +25,20 @@ const RegisterForm = (props) => {
 	const genderRef = useRef();
 	const avatarRef = useRef();
 
+	const send = async () => {
+		// event.preventDefault();
+		console.log(file);
+		if (file !== undefined && file !== null) {
+			const data = new FormData();
+			data.append("testImage", file);
+			data.append("email", useremailRef.current.value);
+			console.log(...data);
+			await Axios.post("http://localhost:5000/image/", data);
+		} else {
+			// alert("Please enter a file!");
+		}
+	};
+
 	const submitHandler = (event) => {
 		event.preventDefault();
 		const details = {
@@ -31,7 +48,7 @@ const RegisterForm = (props) => {
 			phone_number: phoneNumberRef.current.value,
 			password: passwordRef.current.value,
 			city: AutoCapitalizeWords(cityRef.current.value),
-			address: (addressRef.current.value),
+			address: addressRef.current.value,
 			gender: genderRef.current.checked ? "Male" : "Female",
 			img_url: avatarRef.current.value,
 		};
@@ -43,6 +60,9 @@ const RegisterForm = (props) => {
 		/* props.onSubmitForm = onRegister (App.js) */
 
 		props.onSubmitForm(details);
+		if (file !== undefined && file !== null) {
+			send();
+		}
 	};
 
 	return (
@@ -79,7 +99,6 @@ const RegisterForm = (props) => {
 											(Will be shown publicly)
 										</label>
 									</div>
-
 									<div className="form-floating mb-3">
 										<input
 											type="text"
@@ -99,7 +118,6 @@ const RegisterForm = (props) => {
 											</span>
 										</label>
 									</div>
-
 									<div className="form-floating mb-3">
 										<input
 											type="email"
@@ -117,9 +135,7 @@ const RegisterForm = (props) => {
 											</span>
 										</label>
 									</div>
-
 									<hr />
-
 									<div className="form-floating mb-3">
 										<input
 											type="password"
@@ -139,7 +155,6 @@ const RegisterForm = (props) => {
 											</span>
 										</label>
 									</div>
-
 									<div className="form-floating mb-3">
 										<input
 											type="text"
@@ -159,7 +174,6 @@ const RegisterForm = (props) => {
 											</span>
 										</label>
 									</div>
-
 									<div className="form-floating mb-3">
 										<input
 											type="text"
@@ -178,7 +192,6 @@ const RegisterForm = (props) => {
 											</span>
 										</label>
 									</div>
-
 									<div className="form-floating mb-3">
 										<input
 											type="text"
@@ -238,7 +251,23 @@ const RegisterForm = (props) => {
 									</div>
 									<br />
 									<br />
-
+									<div>
+										<label htmlFor="file-input">
+											Profile Photo ({`< 50kb`})
+										</label>
+										<input
+											type="file"
+											id="file-input"
+											accept=".jpg; .png"
+											onChange={(event) => {
+												setFile(event.target.files[0]);
+											}}
+										/>
+									</div>
+									<br />
+									<span style={{ fontSize: 16 }}>or</span>
+									<br />
+									<br />
 									<div className="form-floating mb-3">
 										<input
 											type="text"
@@ -253,7 +282,7 @@ const RegisterForm = (props) => {
 											URL for profile image
 										</label>
 									</div>
-
+									<br></br>
 									<div className="d-grid mb-2">
 										<button
 											type="submit"
@@ -262,6 +291,7 @@ const RegisterForm = (props) => {
 										</button>
 									</div>
 								</form>
+
 								<a
 									className="d-block text-center mt-2 small"
 									href="/signin">
@@ -270,23 +300,6 @@ const RegisterForm = (props) => {
 
 								<hr className="my-4" />
 
-								<div className="d-grid mb-2">
-									<button
-										className="btn btn-lg btn-google btn-login fw-bold text-uppercase"
-										type="submit">
-										<i className="fab fa-google me-2"></i>{" "}
-										Sign up with Google
-									</button>
-								</div>
-
-								<div className="d-grid">
-									<button
-										className="btn btn-lg btn-facebook btn-login fw-bold text-uppercase"
-										type="submit">
-										<i className="fab fa-facebook-f me-2"></i>{" "}
-										Sign up with Facebook
-									</button>
-								</div>
 								<hr />
 							</div>
 						</div>

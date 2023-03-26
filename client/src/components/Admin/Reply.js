@@ -43,6 +43,7 @@ export function Reply() {
 			replyValue: replyRef.current.value,
 			// replyemail:messagecontent.email,
 			email: message.email,
+			message: message.message,
 		};
 		axios.post("http://localhost:5000/messages/reply", reply);
 		navigate("/admin/messages");
@@ -65,6 +66,7 @@ export function Reply() {
 						pb="md"
 						autosize
 						minRows={2}
+						size="lg"
 						readOnly
 						defaultValue={message.message}
 					/>
@@ -77,9 +79,12 @@ export function Reply() {
 							pb="md"
 							autosize
 							minRows={4}
+							size="lg"
 							ref={replyRef}
 						/>
-						<Button type="submit">reply</Button>
+						<Button type="submit" size="lg">
+							Reply
+						</Button>
 					</form>
 				</Container>
 			</container>

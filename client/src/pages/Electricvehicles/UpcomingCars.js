@@ -17,7 +17,7 @@ const UpcomingCars = () => {
 		};
 		getAllvehicles();
 	}, []);
-	let img;
+	let img,expand_link;
 	return (
 		<>
 			<br />
@@ -35,15 +35,19 @@ const UpcomingCars = () => {
 					{allvehicle.map((vehicle) => {
 						if(vehicle.title =='Tata Nexon'){
 							img=Nexon;
+							expand_link="/tata-nexon"
 						}
 						else if(vehicle.title =='Mahindra E20 Plus'){
 							img=E20;
+							expand_link="/mahindra-e20"
 						}
 						else if(vehicle.title =='Mercedes Benz EQS'){
 							img=Volvo;
+							expand_link="/benz-eqs"
 						}
 						else{
 							img=XC40;
+							expand_link="/xc40-recharge"
 						}
 						return (
 						<figure className="effect-sarah">
@@ -55,7 +59,7 @@ const UpcomingCars = () => {
 								<p>
 									{vehicle.desc}
 								</p>
-								<Link to="/ev_cars/tata-nexon">View more</Link>
+								<Link to={"/ev_cars"+expand_link}>View more</Link>
 							</figcaption>
 						</figure>
 						);

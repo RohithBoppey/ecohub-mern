@@ -28,7 +28,8 @@ const Productservice = (props) => {
 		};
 
 		// sending the details to backend admin messages
-		await sendMessageToAdmin(details);
+		sendMessageToAdmin(details);
+		alert('Message Sent')
 		navigate("/");
 	};
 
@@ -105,17 +106,6 @@ const Productservice = (props) => {
 								/>
 							</div>
 							<br />
-							<h6>You can upload images if you have any:</h6>
-							<div className="item-wrapper one">
-								<div className="item">
-									<input
-										type="file"
-										id="file-upload"
-										multiple
-										accept="image/*"
-									/>
-								</div>
-							</div>
 							<div className="form-group">
 								<input
 									type="submit"

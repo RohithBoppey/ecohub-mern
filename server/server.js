@@ -885,5 +885,5 @@ app.use('/image/', image_router)
 // start server
 const PORT = 5000;
 app.listen(5000, () => {
-	console.log(`Server started on port ${PORT}`);
+	console.log(`Server started on port ${PORT}`); 
 });

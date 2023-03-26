@@ -22,13 +22,15 @@ const ElectricProductsPage = (props) => {
 		// 	type: "add-to-cart",
 		// 	product: object,
 		// });
+		console.log(userDetails);
 		const response = await Axios.post(
 			"http://localhost:5000/users/add-to-cart",
 			{
-				user_id: userDetails._id,
+				email: userDetails.email,
 				product_id: object._id,
 			}
 		);
+
 		console.log(response);
 		navigate("/show-cart");
 	};

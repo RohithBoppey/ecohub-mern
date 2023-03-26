@@ -135,10 +135,10 @@ user_router.delete("/:id", async (req, res) => {
 
 user_router.post("/update-profile", async (req, res) => {
 	console.log(`req recieved`);
-	console.log(req.body);
+	console.log(req.body); 
 
-	const user = await User.findByIdAndUpdate(
-		req.body.id,
+	const user = await User.findOne(
+		req.body.email,
 		{
 			fullname: req.body.fullname,
 			username: req.body.username,
@@ -219,7 +219,7 @@ user_router.post("/change-to-default", async (req, res) => {
 
 		sendEmail();
 
-		response = "Updated";
+		response = "Updated"; 
 	} else {
 		response = "Non-valid user";
 	}

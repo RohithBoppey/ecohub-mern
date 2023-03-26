@@ -63,11 +63,15 @@ message_router.post("/", async (req, res) => {
 		});
 
 		console.log("Message sent: %s", info.messageId);
+		res.send()
 	};
 
 	sendEmail();
 
 	console.log("Message created and sent to Admin Portal");
+	const messageinfo = "Message created and sent to Admin Portal";
+	console.log(messageinfo);
+	res.json({ messageinfo });
 });
 
 message_router.get("/:id", async (req, res) => {

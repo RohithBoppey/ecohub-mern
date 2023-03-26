@@ -1,10 +1,13 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 const Footer = () => {
+	const userIsLoggedIn = useSelector((state) => state.userIsLoggedIn);
+
 	return (
 		<>
 			<div style={{ textAlign: "center" }}>
-				<a href="/register">
+				{!userIsLoggedIn && <a href="/register">
 					<button
 						style={{
 							textAlign: "center",
@@ -19,7 +22,7 @@ const Footer = () => {
 						type="submit">
 						Join us
 					</button>
-				</a>
+				</a>}
 			</div>
 			<br />
 			<br />

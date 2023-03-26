@@ -137,8 +137,8 @@ user_router.post("/update-profile", async (req, res) => {
 	console.log(`req recieved`);
 	console.log(req.body);
 
-	const user = await User.findByIdAndUpdate(
-		req.body.id,
+	const user = await User.findOneAndUpdate(
+		{ email: req.body.email },
 		{
 			fullname: req.body.fullname,
 			username: req.body.username,
@@ -154,6 +154,7 @@ user_router.post("/update-profile", async (req, res) => {
 	);
 	const message = "User updated successfully";
 	console.log(message);
+	console.log(user)
 	res.json(user);
 });
 

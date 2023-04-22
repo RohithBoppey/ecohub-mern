@@ -5,6 +5,7 @@ const message_router = express.Router();
 const dotenv = require("dotenv");
 dotenv.config();
 const nodemailer = require("nodemailer");
+const redisClient = require('../redis/redis');
 
 let transporter = nodemailer.createTransport({
 	host: "smtp.gmail.com", // SMTP server address (usually mail.your-domain.com)
@@ -17,20 +18,41 @@ let transporter = nodemailer.createTransport({
 	},
 });
 message_router.get("/", async (req, res) => {
-	const messages = await Message.find();
-	const allMessages = [];
-	for (let i of messages) {
-		const user = await User.find({ email: i.email });
-		// console.log(user);
-		const temp = {
-			message_details: i,
-			user_details: user[0],
-		};
-		console.log(temp);
-		allMessages.push(temp);
+	// const messages = await Message.find();
+	// const allMessages = [];
+	// for (let i of messages) {
+	// 	const user = await User.find({ email: i.email });
+	// 	// console.log(user);
+	// 	const temp = {
+	// 		message_details: i,
+	// 		user_details: user[0],
+	// 	};
+	// 	console.log(temp);
+	// 	allMessages.push(temp);
+	// }
+	// // console.log(allMessages);
+	// return res.json(allMessages);
+
+	let allMessages = [];
+	const cacheKey = "all-messages";
+	let clients = await redisClient.get(cacheKey);
+	if (!clients) {
+		const messages = await Message.find();
+		for (let i of messages) {
+			const user = await User.find({ email: i.email });
+			const temp = {
+				message_details: i,
+				user_details: user[0],
+			};
+			allMessages.push(temp);
+		}
+		redisClient.set(cacheKey, JSON.stringify(allMessages));
+		console.log('Set into Redis client')
+	} else {
+		console.log("Retreived from Redis client");
+		allMessages = clients;
 	}
-	// console.log(allMessages);
-	return res.json(allMessages);
+	res.json(allMessages);
 });
 
 message_router.delete("/:id", async (req, res) => {
@@ -63,7 +85,7 @@ message_router.post("/", async (req, res) => {
 		});
 
 		console.log("Message sent: %s", info.messageId);
-		res.send()
+		res.send();
 	};
 
 	sendEmail();

@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const dotenv = require("dotenv");
 dotenv.config();
 const nodemailer = require("nodemailer");
+const redisClient = require('../redis/redis');
 
 function hashpassword(password) {
 	const salt = bcrypt.genSaltSync();
@@ -27,8 +28,17 @@ function comparepassword(raw, hash) {
 }
 
 user_router.get("/", async (req, res) => {
-	// console.log("in req")
-	const users = await User.find();
+	let users = []
+	const cacheKey = 'all-users';
+	let clients = await redisClient.get(cacheKey)
+	if(!clients){
+		users = await User.find();
+		redisClient.set(cacheKey, JSON.stringify(users));
+		console.log('Set into Redis client')
+	}else{
+		console.log('Retreived from Redis client')
+		users = clients;
+	}
 	res.json(users);
 });
 

@@ -199,7 +199,8 @@ function App() {
 			if (useremail !== null && useremail !== undefined) {
 				// console.log(useremail);
 				const allUsers = await fetch("http://localhost:5000/users");
-				const allUsersJson = await allUsers.json();
+				const temp = await allUsers.json();
+				const allUsersJson = JSON.parse(temp);
 				const requiredUser = allUsersJson.filter(
 					(user) => user.email === useremail
 				);
@@ -213,19 +214,22 @@ function App() {
 			if (adminLogin !== null && adminLogin !== undefined) {
 				// console.log(useremail);
 				const allAdmin = await fetch("http://localhost:5000/admins");
-				const allAdminsJson = await allAdmin.json();
-				// console.log(allUsersJson);
-				const requiredAdmin = allAdminsJson.filter(
+				const temp = await allAdmin.json();
+				// console.log(temp);
+				// console.log(typeof(temp));
+				// const allAdminsJson = JSON.parse(temp);
+				const requiredAdmin = temp.filter(
 					(user) => user.username === adminLogin
 				);
-				// console.log(requiredAdmin);
+				console.log(requiredAdmin);
 				setAdminDetails(requiredAdmin[0]);
 			}
 		};
 
 		const getAllElectricProducts = async () => {
 			const result = await fetch("http://localhost:5000/products");
-			const resultJSON = await result.json();
+			let resultJSON = await result.json();
+			resultJSON = JSON.parse(resultJSON);
 			setAllProducts(resultJSON);
 		};
 		const getAllElectricVehicles = async () => {

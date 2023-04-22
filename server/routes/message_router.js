@@ -5,7 +5,7 @@ const message_router = express.Router();
 const dotenv = require("dotenv");
 dotenv.config();
 const nodemailer = require("nodemailer");
-const redisClient = require('../redis/redis');
+const redisClient = require("../redis/redis");
 
 let transporter = nodemailer.createTransport({
 	host: "smtp.gmail.com", // SMTP server address (usually mail.your-domain.com)
@@ -17,27 +17,16 @@ let transporter = nodemailer.createTransport({
 		// ⚠️ For better security, use environment variables set on the server for these values when deploying
 	},
 });
-message_router.get("/", async (req, res) => {
-	// const messages = await Message.find();
-	// const allMessages = [];
-	// for (let i of messages) {
-	// 	const user = await User.find({ email: i.email });
-	// 	// console.log(user);
-	// 	const temp = {
-	// 		message_details: i,
-	// 		user_details: user[0],
-	// 	};
-	// 	console.log(temp);
-	// 	allMessages.push(temp);
-	// }
-	// // console.log(allMessages);
-	// return res.json(allMessages);
 
+const cacheKey = "all-messages";
+
+message_router.get("/", async (req, res) => {
 	let allMessages = [];
 	const cacheKey = "all-messages";
 	let clients = await redisClient.get(cacheKey);
-	if (!clients) {
+	// if (!clients) {
 		const messages = await Message.find();
+		console.log(messages);
 		for (let i of messages) {
 			const user = await User.find({ email: i.email });
 			const temp = {
@@ -46,12 +35,12 @@ message_router.get("/", async (req, res) => {
 			};
 			allMessages.push(temp);
 		}
-		redisClient.set(cacheKey, JSON.stringify(allMessages));
-		console.log('Set into Redis client')
-	} else {
-		console.log("Retreived from Redis client");
-		allMessages = clients;
-	}
+		// redisClient.set(cacheKey, JSON.stringify(allMessages));
+		// console.log("Set into Redis client");
+	// } else {
+	// 	console.log("Retreived from Redis client");
+	// 	allMessages = clients;
+	// }
 	res.json(allMessages);
 });
 
@@ -60,10 +49,12 @@ message_router.delete("/:id", async (req, res) => {
 	await Message.deleteOne({ _id: req.params.id });
 	const message = "Message deleted successfully";
 	console.log(message);
+	redisClient.del(cacheKey);
 	res.json({ message });
 });
 
 message_router.post("/", async (req, res) => {
+	redisClient.del(cacheKey);
 	const message = new Message({
 		email: req.body.email,
 		fullname: req.body.fullname,

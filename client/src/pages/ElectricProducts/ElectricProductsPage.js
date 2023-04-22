@@ -9,7 +9,6 @@ import Axios from "axios";
 
 const ElectricProductsPage = (props) => {
 	// console.log(props)
-	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
 	// const [allProducts, setAllProducts] = useState(props.products);

@@ -8,22 +8,25 @@ const AdminHome = (props) => {
 
 	const getAllProducts = async () => {
 		const products = await fetch("http://localhost:5000/products");
-		const productsJson = await products.json();
+		let productsJson = await products.json();
+		productsJson = JSON.parse(productsJson);
+		// console.log(typeof(productsJson));
 		// console.log(productsJson);
 		setAllProducts(productsJson);
 	};
 
 	const getAllUsers = async () => {
 		const users = await fetch("http://localhost:5000/users");
-		const usersJson = await users.json();
-		// console.log(usersJson);
+		let usersJson = await users.json();
+		usersJson = JSON.parse(usersJson);
 		setAllUsers(usersJson);
 	};
 
 	const getAllMessages = async () => {
 		const messages = await fetch("http://localhost:5000/messages");
-		const messagesJson = await messages.json();
-		console.log(messagesJson);
+		let messagesJson = await messages.json();
+		messagesJson = JSON.parse(messagesJson);
+		// console.log(messagesJson);
 		setAllMessages(messagesJson);
 	};
 

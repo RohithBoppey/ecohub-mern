@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import axios from 'axios';
 import Messages from "../../components/Admin/Messages";
 
 const ShowAllMessages = (props) => {
@@ -11,7 +11,8 @@ const ShowAllMessages = (props) => {
 	*/
 	const getAllMessages = async () => {
 		const messages = await fetch("http://localhost:5000/messages");
-		const messagesJson = await messages.json();
+		let messagesJson = await messages.json();
+		// messagesJson = JSON.parse(messagesJson);
 		console.log(messagesJson);
 		setAllMessages(messagesJson);
 	};
@@ -20,8 +21,9 @@ const ShowAllMessages = (props) => {
 		await fetch(`http://localhost:5000/messages/${id}`, {
 			method: "DELETE",
 		});
-		console.log('removed')
+		console.log("removed");
 		window.location.reload("/admin/messages");
+		await axios.post(`http://localhost:5000/clear-redis`, {key: ''})
 	};
 
 	// as soon as page renders, execute this.
@@ -32,7 +34,11 @@ const ShowAllMessages = (props) => {
 	return (
 		<div>
 			{allMessages !== undefined && allMessages !== null && (
-				<Messages messages={allMessages} onLogout={props.onLogout} onRemoveMessage = {onRemoveMessage}/>
+				<Messages
+					messages={allMessages}
+					onLogout={props.onLogout}
+					onRemoveMessage={onRemoveMessage}
+				/>
 			)}
 		</div>
 	);

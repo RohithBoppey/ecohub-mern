@@ -36,7 +36,7 @@ export function Reply() {
 
 	const replyRef = useRef();
 
-	const submitHandler = (event) => {
+	const submitHandler = async (event) => {
 		console.log(" submit handler in action");
 		event.preventDefault();
 		const reply = {
@@ -45,7 +45,8 @@ export function Reply() {
 			email: message.email,
 			message: message.message,
 		};
-		axios.post("http://localhost:5000/messages/reply", reply);
+		await axios.post("http://localhost:5000/messages/reply", reply);
+		alert("Reply to the message has been successfully sent");
 		navigate("/admin/messages");
 	};
 

@@ -10,7 +10,7 @@ const ShowMainData = (props) => {
 	const getAllProducts = async () => {
 		const products = await fetch("http://localhost:5000/products");
 		let productsJson = await products.json();
-		productsJson = JSON.parse(productsJson);
+		// productsJson = JSON.parse(productsJson);
 		// console.log(typeof(productsJson));
 		// console.log(productsJson);
 		setAllProducts(productsJson);
@@ -19,7 +19,8 @@ const ShowMainData = (props) => {
 	const getAllUsers = async () => {
 		const users = await fetch("http://localhost:5000/users");
 		let usersJson = await users.json();
-		usersJson = JSON.parse(usersJson);
+		console.log(usersJson);
+		// usersJson = JSON.parse(usersJson);
 		setAllUsers(usersJson);
 	};
 

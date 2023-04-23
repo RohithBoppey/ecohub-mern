@@ -40,21 +40,27 @@ message_router.get("/", async (req, res) => {
 	} else {
 		console.log("Retreived from Redis client");
 		allMessages = clients;
+		allMessages = JSON.parse(allMessages);
 	}
 	res.json(allMessages);
 });
 
 message_router.delete("/:id", async (req, res) => {
-	// console.log(req.params.id)
 	await Message.deleteOne({ _id: req.params.id });
 	const message = "Message deleted successfully";
 	console.log(message);
-	redisClient.del(cacheKey);
+	redisClient.del(cacheKey, function (err, response) {
+		if(err){
+			console.log(err);
+			return;
+		}else{
+			console.log(response);
+		}
+	});
 	res.json({ message });
 });
 
 message_router.post("/", async (req, res) => {
-	redisClient.del(cacheKey);
 	const message = new Message({
 		email: req.body.email,
 		fullname: req.body.fullname,
@@ -68,19 +74,27 @@ message_router.post("/", async (req, res) => {
 			to: req.body.email, // list of receivers
 			subject: "New Request", // Subject line
 			html: `<h1>Hello User</h1>
-	    <h3>
-	    Hello User, We have received your request for <u>${req.body.type}</u> : ${message._id}, saying : "${message.message}" 
-		Please bear with us until one of our team contacts you.
-	    <br /> Thank you and have a great day!</h3>
-	    <h4>Ecohub, India</h4>`,
+			<h3>
+			Hello User, We have received your request for <u>${req.body.type}</u> : ${message._id}, saying : "${message.message}" 
+			Please bear with us until one of our team contacts you.
+			<br /> Thank you and have a great day!</h3>
+			<h4>Ecohub, India</h4>`,
 		});
-
+		
 		console.log("Message sent: %s", info.messageId);
 		res.send();
 	};
-
+	
 	sendEmail();
-
+	
+	redisClient.del(cacheKey, function (err, response) {
+		if(err){
+			console.log(err);
+			return;
+		}else{
+			console.log(response);
+		}
+	});
 	console.log("Message created and sent to Admin Portal");
 	const messageinfo = "Message created and sent to Admin Portal";
 	console.log(messageinfo);
@@ -104,6 +118,14 @@ message_router.get("/:id", async (req, res) => {
 });
 
 message_router.post("/reply", async (req, res) => {
+	redisClient.del(cacheKey, function (err, response) {
+		if(err){
+			console.log(err);
+			return;
+		}else{
+			console.log(response);
+		}
+	});
 	const messagevalue = req.body.replyValue;
 	const email = req.body.email;
 	console.log(email);

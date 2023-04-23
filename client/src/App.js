@@ -199,11 +199,12 @@ function App() {
 			if (useremail !== null && useremail !== undefined) {
 				// console.log(useremail);
 				const allUsers = await fetch("http://localhost:5000/users");
-				const temp = await allUsers.json();
-				const allUsersJson = JSON.parse(temp);
+				const allUsersJson = await allUsers.json();
+				// console.log(allUsersJson)
 				const requiredUser = allUsersJson.filter(
 					(user) => user.email === useremail
 				);
+				console.log(requiredUser)
 				if (requiredUser.length !== 0) {
 					// console.log(requiredUser);
 					setUserDetails(requiredUser[0]);

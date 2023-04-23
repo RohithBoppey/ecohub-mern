@@ -79,12 +79,12 @@ mongoose
 	.then(() => console.log("Connected to MongoDB"))
 	.catch((err) => console.error("Could not connect to MongoDB", err));
 
-app.post('/clear-redis', (req, res) => {
+app.post("/clear-redis", (req, res) => {
 	const key = req.body.key;
 	redisClient.del(key);
-	console.log('Cleared from redis');
-	res,sendStatus(200);
-})
+	console.log("Cleared from redis");
+	res.sendStatus(200);
+});
 
 /**
  * @swagger
@@ -862,6 +862,5 @@ const PORT = 5000;
 app.listen(5000, () => {
 	console.log(`Server started on port ${PORT}`);
 });
-
 
 module.exports = app;

@@ -15,8 +15,9 @@ product_router.get("/", async (req, res) => {
 		redisClient.set(cacheKey, JSON.stringify(products));
 		console.log('Set into Redis client')
 	}else{
-		console.log('Retreived from Redis client')
+		console.log('Products Retreived from Redis client')
 		products = clients;
+		products = JSON.parse(products);
 	}
 	res.json(products);
 });

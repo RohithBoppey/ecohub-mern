@@ -27,6 +27,8 @@ function comparepassword(raw, hash) {
 	return bcrypt.compareSync(raw, hash);
 }
 
+const cacheKey = 'all-users';
+
 user_router.get("/", async (req, res) => {
 	let users = []
 	const cacheKey = 'all-users';
@@ -49,6 +51,7 @@ user_router.get("/:id", async (req, res) => {
 });
 
 user_router.post("/", async (req, res) => {
+	redisClient.del(cacheKey);
 	let user = await User.find({
 		email: req.body.email,
 		// password: hashpassword(req.body.password),
@@ -137,6 +140,7 @@ user_router.put("/:id", async (req, res) => {
 });
 
 user_router.delete("/:id", async (req, res) => {
+	redisClient.del(cacheKey);
 	await User.deleteOne({ _id: req.params.id });
 	const message = "User deleted successfully";
 	console.log(message);

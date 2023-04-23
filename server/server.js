@@ -20,6 +20,7 @@ const article_router = require("./routes/article_router");
 const vehicle_router = require("./routes/vehicle_router");
 const allvehicle_router = require("./routes/allvehicle_router");
 const image_router = require("./routes/image_router");
+const cab_router = require("./routes/cab_router");
 const redisClient = require("./redis/redis");
 
 const accessLogStream = fs.createWriteStream(
@@ -856,6 +857,7 @@ app.use("/allvehicles/", allvehicle_router);
  */
 
 app.use("/image/", image_router);
+app.use("/cabservice/", cab_router);
 
 // start server
 const PORT = 5000;

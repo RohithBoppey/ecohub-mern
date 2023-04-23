@@ -204,7 +204,7 @@ function App() {
 				const requiredUser = allUsersJson.filter(
 					(user) => user.email === useremail
 				);
-				console.log(requiredUser)
+				console.log(requiredUser);
 				if (requiredUser.length !== 0) {
 					// console.log(requiredUser);
 					setUserDetails(requiredUser[0]);
@@ -230,7 +230,6 @@ function App() {
 		const getAllElectricProducts = async () => {
 			const result = await fetch("http://localhost:5000/products");
 			let resultJSON = await result.json();
-			resultJSON = JSON.parse(resultJSON);
 			setAllProducts(resultJSON);
 		};
 		const getAllElectricVehicles = async () => {

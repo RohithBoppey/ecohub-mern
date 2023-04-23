@@ -1,23 +1,66 @@
-import React from "react";
+import React, { useRef } from "react";
 import Lottie from "react-lottie";
 import { useNavigate } from "react-router-dom";
 import electriccab from "../../lotties/electric-cab.json";
 import { generateDefaultOptions } from "../../util/utils";
 import { Dialog, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
 const Cabrequest = () => {
 	const [opened, { toggle, close }] = useDisclosure(false);
+	const userDetails = useSelector((state) => state.userDet);
+
+	const fromRef = useRef("");
+	const toRef = useRef("");
+	const phoneNumberRef = useRef("");
+	const DateTimeRef = useRef("");
+	const standardRadioRef = useRef();
+	const minivanRadioRef = useRef();
+	const businessRadioRef = useRef();
+	const VIPRadioRef = useRef();
 
 	// const navigate = useNavigate();
 
-	const submitHandler = (event) => {
+	const navigate = useNavigate();
+
+	const submitHandler = async (event) => {
 		event.preventDefault();
-		toggle();
-		// alert("Please check your email for confirmation");
+		// console.log(userDetails);
+		const currentDate = Date.now();
+		const selectedDate = Date.parse(DateTimeRef.current.value);
+		if (currentDate > selectedDate) {
+			alert("Please select valid date");
+			return;
+		}
+		console.log(currentDate, selectedDate);
+		let selectedCar = "invalid";
+		if (standardRadioRef.current.checked) {
+			selectedCar = "Standard";
+		} else if (minivanRadioRef.current.checked) {
+			selectedCar = "Minivan";
+		} else if (businessRadioRef.current.checked) {
+			selectedCar = "Business";
+		} else if (VIPRadioRef.current.checked) {
+			selectedCar = "VIP";
+		}
+		console.log(selectedCar);
+		const details = {
+			from: fromRef.current.value,
+			to: toRef.current.value,
+			selectedCar: selectedCar,
+			phoneNumber: phoneNumberRef.current.value,
+		};
+		console.log(details);
+		alert(
+			"Booking has been done, Please check your email for confirmation of booking"
+		);
+		await axios.post('/cabservice/new-request', {userDetails: userDetails, bookingDetails: details})
 		// if(opened === false){
 		// 	navigate("/");
 		// }
+		// navigate("/");
 	};
 
 	return (
@@ -36,6 +79,7 @@ const Cabrequest = () => {
 										type="text"
 										placeholder="Enter your pickup location"
 										required
+										ref={fromRef}
 										className="cab_input"
 									/>{" "}
 								</div>
@@ -48,6 +92,7 @@ const Cabrequest = () => {
 										type="text"
 										placeholder="Enter your drop location"
 										required
+										ref={toRef}
 										className="cab_input"
 									/>{" "}
 								</div>
@@ -64,6 +109,8 @@ const Cabrequest = () => {
 										placeholder="Enter phone number:"
 										required
 										id="phone"
+										defaultValue={userDetails.phone_number}
+										ref={phoneNumberRef}
 										className="cab_input"
 									/>{" "}
 								</div>
@@ -76,6 +123,7 @@ const Cabrequest = () => {
 									<input
 										type="datetime-local"
 										className="cab_input"
+										ref={DateTimeRef}
 										required
 									/>
 								</div>
@@ -92,6 +140,7 @@ const Cabrequest = () => {
 											name="Cab"
 											id="Radios"
 											value="Standard"
+											ref={standardRadioRef}
 											required
 										/>
 										<label
@@ -108,6 +157,7 @@ const Cabrequest = () => {
 											name="Cab"
 											id="Radios"
 											value="Minivan"
+											ref={minivanRadioRef}
 										/>
 										<label
 											className="form-check-label"
@@ -123,6 +173,7 @@ const Cabrequest = () => {
 											name="Cab"
 											id="Radios"
 											value="Business"
+											ref={businessRadioRef}
 										/>
 										<label
 											className="form-check-label"
@@ -138,6 +189,7 @@ const Cabrequest = () => {
 											name="Cab"
 											id="Radios"
 											value="VIP"
+											ref={VIPRadioRef}
 										/>
 										<label
 											className="form-check-label"

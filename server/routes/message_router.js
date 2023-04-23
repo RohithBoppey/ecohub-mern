@@ -24,7 +24,7 @@ message_router.get("/", async (req, res) => {
 	let allMessages = [];
 	const cacheKey = "all-messages";
 	let clients = await redisClient.get(cacheKey);
-	// if (!clients) {
+	if (!clients) {
 		const messages = await Message.find();
 		console.log(messages);
 		for (let i of messages) {
@@ -35,12 +35,12 @@ message_router.get("/", async (req, res) => {
 			};
 			allMessages.push(temp);
 		}
-		// redisClient.set(cacheKey, JSON.stringify(allMessages));
-		// console.log("Set into Redis client");
-	// } else {
-	// 	console.log("Retreived from Redis client");
-	// 	allMessages = clients;
-	// }
+		redisClient.set(cacheKey, JSON.stringify(allMessages));
+		console.log("Set into Redis client");
+	} else {
+		console.log("Retreived from Redis client");
+		allMessages = clients;
+	}
 	res.json(allMessages);
 });
 

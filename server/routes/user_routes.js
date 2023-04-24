@@ -170,6 +170,7 @@ user_router.post("/update-profile", async (req, res) => {
 	const message = "User updated successfully";
 	console.log(message);
 	console.log(user);
+	redisClient.del(cacheKey);
 	res.json(user);
 });
 
@@ -234,7 +235,7 @@ user_router.post("/change-to-default", async (req, res) => {
 		};
 
 		sendEmail();
-
+		redisClient.del(cacheKey);
 		response = "Updated";
 	} else {
 		response = "Non-valid user";

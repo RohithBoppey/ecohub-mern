@@ -21,7 +21,7 @@ export function Reply() {
 		// console.log(data.id);
 		const getDetails = async () => {
 			const messageDetails = await fetch(
-				`http://localhost:5000/messages/${data.id}`
+				`https://ecohubserver.azurewebsites.net/messages/${data.id}`
 			);
 			const messageDetailsJSON = await messageDetails.json();
 			console.log(messageDetailsJSON.message[0]);
@@ -45,7 +45,7 @@ export function Reply() {
 			email: message.email,
 			message: message.message,
 		};
-		await axios.post("http://localhost:5000/messages/reply", reply);
+		await axios.post("https://ecohubserver.azurewebsites.net/messages/reply", reply);
 		alert("Reply to the message has been successfully sent");
 		navigate("/admin/messages");
 	};

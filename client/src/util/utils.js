@@ -5,7 +5,7 @@
 export const sendMessageToAdmin = async (messageDetails) => {
 	let flag = false;
 	// console.log(messageDetails);
-	const allMessages = await fetch("http://localhost:5000/messages");
+	const allMessages = await fetch("https://ecohubserver.azurewebsites.net/messages");
 	const allMessagesJson = await allMessages.json();
 	console.log(allMessagesJson);
 	allMessagesJson.forEach((message) => {
@@ -22,7 +22,7 @@ export const sendMessageToAdmin = async (messageDetails) => {
 	});
 
 	if (flag === false) {
-		await fetch("http://localhost:5000/messages", {
+		await fetch("https://ecohubserver.azurewebsites.net/messages", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

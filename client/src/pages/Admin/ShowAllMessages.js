@@ -10,7 +10,7 @@ const ShowAllMessages = (props) => {
 		1. Fetch all messages from json-server.
 	*/
 	const getAllMessages = async () => {
-		const messages = await fetch("http://localhost:5000/messages");
+		const messages = await fetch("https://ecohubserver.azurewebsites.net/messages");
 		let messagesJson = await messages.json();
 		// messagesJson = JSON.parse(messagesJson);
 		console.log(messagesJson);
@@ -18,12 +18,12 @@ const ShowAllMessages = (props) => {
 	};
 
 	const onRemoveMessage = async (id) => {
-		await fetch(`http://localhost:5000/messages/${id}`, {
+		await fetch(`https://ecohubserver.azurewebsites.net/messages/${id}`, {
 			method: "DELETE",
 		});
 		console.log("removed");
 		window.location.reload("/admin/messages");
-		await axios.post(`http://localhost:5000/clear-redis`, {key: ''})
+		await axios.post(`https://ecohubserver.azurewebsites.net/clear-redis`, {key: ''})
 	};
 
 	// as soon as page renders, execute this.

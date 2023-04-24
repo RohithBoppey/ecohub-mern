@@ -23,7 +23,7 @@ const ElectricProductsPage = (props) => {
 		// });
 		console.log(userDetails);
 		const response = await Axios.post(
-			"http://localhost:5000/users/add-to-cart",
+			"https://ecohubserver.azurewebsites.net/users/add-to-cart",
 			{
 				email: userDetails.email,
 				product_id: object._id,

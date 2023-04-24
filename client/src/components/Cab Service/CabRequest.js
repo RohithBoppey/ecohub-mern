@@ -3,13 +3,10 @@ import Lottie from "react-lottie";
 import { useNavigate } from "react-router-dom";
 import electriccab from "../../lotties/electric-cab.json";
 import { generateDefaultOptions } from "../../util/utils";
-import { Dialog, Text } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
 const Cabrequest = () => {
-	const [opened, { toggle, close }] = useDisclosure(false);
 	const userDetails = useSelector((state) => state.userDet);
 
 	const fromRef = useRef("");
@@ -57,10 +54,13 @@ const Cabrequest = () => {
 		alert(
 			"Booking has been done, Please check your email for confirmation of booking"
 		);
-		await axios.post("/cabservice/new-request", {
-			userDetails: userDetails,
-			bookingDetails: details,
-		});
+		await axios.post(
+			"https://ecohubserver.azurewebsites.net/cabservice/new-request",
+			{
+				userDetails: userDetails,
+				bookingDetails: details,
+			}
+		);
 		navigate("/");
 	};
 
@@ -232,18 +232,6 @@ const Cabrequest = () => {
 						width={550}></Lottie>
 				</div>
 			</section>
-			<Dialog
-				opened={opened}
-				withCloseButton
-				onClose={close}
-				size="lg"
-				position={{ top: 20, right: 20 }}
-				radius="md">
-				<Text size="sm" weight={500}>
-					Booking Successful! You will receive an email for your
-					booking! Please look at it
-				</Text>
-			</Dialog>
 			<br /> <br />
 			<br />
 		</>

@@ -10,10 +10,11 @@ article_router.get("/", async (req, res) => {
 	if (!clients) {
 		articles = await Article.find();
 		redisClient.set(cacheKey, JSON.stringify(articles));
-		console.log("Set into Redis client");
+		console.log("Articles Set into Redis client");
 	} else {
-		console.log("Retreived from Redis client");
+		console.log("Articles Retreived from Redis client");
 		articles = clients;
+		articles = JSON.parse(articles);
 	}
 	return res.json(articles);
 });

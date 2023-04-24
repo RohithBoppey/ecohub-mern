@@ -30,10 +30,10 @@ export default function ArticlePage() {
 
 	useEffect(() => {
 		const getArticles = async () => {
-			const temp = await fetch("http://localhost:5000/articles");
-			const tempJson = await temp.json();
-			console.log(tempJson.article);
-			setArticles(tempJson.article);
+			const articles = await fetch("http://localhost:5000/articles");
+			const articlesJson = await articles.json();
+			console.log(articlesJson);
+			setArticles(articlesJson);
 		};
 		getArticles();
 	}, []);

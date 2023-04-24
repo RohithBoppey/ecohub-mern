@@ -30,7 +30,7 @@ const Updateprofile = (props) => {
 			password: passwordRef.current.value,
 		};
 
-		await axios.post("http://localhost:5000/users/update-profile", details);
+		await axios.post("https://ecohubserver.azurewebsites.net/users/update-profile", details);
 		alert("Successfully updated profile");
 		navigate("/");
 	};

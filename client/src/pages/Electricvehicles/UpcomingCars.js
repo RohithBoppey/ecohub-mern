@@ -10,7 +10,7 @@ const UpcomingCars = () => {
 
 	useEffect(() => {
 		const getAllvehicles = async () => {
-			const temp = await fetch("http://localhost:5000/allvehicles/");
+			const temp = await fetch("https://ecohubserver.azurewebsites.net/allvehicles/");
 			const tempJson = await temp.json();
 			console.log(tempJson);
 			setAllvehicles(tempJson);

@@ -26,7 +26,7 @@ const ContactSalesManager = (props) => {
 
 		// sending the details to backend admin messages
 		sendMessageToAdmin(details);
-		alert("Message sent")
+		alert("Message sent");
 		navigate("/");
 	};
 
@@ -95,23 +95,30 @@ const ContactSalesManager = (props) => {
 				</p>
 				<div className="container-csm">
 					<div className="row">
-						<div className="col-md-4">
+						<div
+							className="col-md-4"
+							style={{
+								display: "flex",
+								justifyContent: "center",
+								alignItems: "center",
+							}}>
 							<img
-								src={guyPhoto}
+								// src={guyPhoto}
+								src="https://www.clipartmax.com/png/middle/5-59093_cupmanager-manager-cartoon-png.png"
 								className="img1"
 								alt="alt"></img>
 						</div>
 						<div className="col-md-8">
 							<div className="row">
-								<h4>Mikkel Smith</h4>
+								<h2>Vikram Vedha</h2>
 							</div>
-							<h5>Sales Manager</h5>
+							<h4>Sales Manager</h4>
 						</div>
 					</div>
 				</div>
 				<p className="p2">
 					Make sure you ask all your doubts now and here and Welcome
-					to the world of ECOHUB! 💖
+					to the world of ECOHUB!
 				</p>
 			</div>
 		</div>

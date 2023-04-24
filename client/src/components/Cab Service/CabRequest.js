@@ -50,17 +50,18 @@ const Cabrequest = () => {
 			from: fromRef.current.value,
 			to: toRef.current.value,
 			selectedCar: selectedCar,
+			selectedTime: selectedDate,
 			phoneNumber: phoneNumberRef.current.value,
 		};
 		console.log(details);
 		alert(
 			"Booking has been done, Please check your email for confirmation of booking"
 		);
-		await axios.post('/cabservice/new-request', {userDetails: userDetails, bookingDetails: details})
-		// if(opened === false){
-		// 	navigate("/");
-		// }
-		// navigate("/");
+		await axios.post("/cabservice/new-request", {
+			userDetails: userDetails,
+			bookingDetails: details,
+		});
+		navigate("/");
 	};
 
 	return (

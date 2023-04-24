@@ -13,6 +13,12 @@ let transporter = nodemailer.createTransport({
 	},
 });
 
+const returnDate = (dateString) => {
+	const date = new Date(dateString);
+	console.log(date.toLocaleString());
+	return date.toLocaleString();
+};
+
 cab_router.post("/new-request", (req, res) => {
 	const { bookingDetails, userDetails } = req.body;
 	console.log(req.body);
@@ -30,28 +36,47 @@ cab_router.post("/new-request", (req, res) => {
                 <br /> Thank you and have a great day!
             </h3>
             <h4>Please find your entered details:</h4>
-            <table>
-                <tr>
-                    <th>From</th>
-                    <td><b>${bookingDetails.from}</b></td>
-                </tr>
-                <tr>
-                    <th>To</th>
-                    <td><b>${bookingDetails.to}</b></td>
-                </tr>
-                <tr>
-                    <th>Selected Mode of Transport</th>
-                    <td><b>${bookingDetails.selectedCar}</b></td>
-                </tr>
-                <tr>
-                    <th>Phone Number</th>
-                    <td><b>${bookingDetails.phoneNumber}</b></td>
-                </tr>
-                <tr>
-                    <th>Fullname</th>
-                    <td><b>${userDetails.fullname}</b></td>
-                </tr>
-            </table>
+            <style>
+                table,
+                th,
+                td {
+                    border: 1px solid black;
+                }
+                th{
+                    padding: 8px;
+                    padding-right: 20px;
+                }
+                td{
+                    padding: 8px;
+                    padding-left: 20px;
+                }
+            </style>
+            <table style = 'border: 1px solid black; font-family: Arial, Helvetica, sans-serif;'>
+            <tr>
+                <th style = 'padding: 10px; padding-right: 30px'>From</th>
+                <td ><b>${bookingDetails.from}</b></td>
+            </tr>
+            <tr>
+                <th style = 'padding: 10px; padding-right: 30px'>To</th>
+                <td><b>${bookingDetails.to}</b></td>
+            </tr>
+            <tr>
+                <th style = 'padding: 10px; padding-right: 30px'>Selected Time</th>
+                <td><b>${returnDate(bookingDetails.selectedTime)}</b></td>
+            </tr>
+            <tr>
+                <th style = 'padding: 10px; padding-right: 30px'>Selected Mode of Transport</th>
+                <td><b>${bookingDetails.selectedCar}</b></td>
+            </tr>
+            <tr>
+                <th style = 'padding: 10px; padding-right: 30px'>Phone Number</th>
+                <td><b>${bookingDetails.phoneNumber}</b></td>
+            </tr>
+            <tr>
+                <th style = 'padding: 10px; padding-right: 30px'>Fullname</th>
+                <td><b>${userDetails.fullname}</b></td>
+            </tr>
+        </table>
             <h4>Ecohub, India</h4>
             `,
 		});

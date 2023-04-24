@@ -50,7 +50,7 @@ const Messages = (props) => {
 							</td>
 							<th className="th-sd">
 								<a
-									href={`http://localhost:3000/admin/reply/${message.message_details._id}`}
+									href={`/admin/reply/${message.message_details._id}`}
 									target="__blank"
 									// onClick={() =>
 									// 	props.onRemoveMessage(message.message_details._id)

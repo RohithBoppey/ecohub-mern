@@ -118,14 +118,6 @@ message_router.get("/:id", async (req, res) => {
 });
 
 message_router.post("/reply", async (req, res) => {
-	redisClient.del(cacheKey, function (err, response) {
-		if(err){
-			console.log(err);
-			return;
-		}else{
-			console.log(response);
-		}
-	});
 	const messagevalue = req.body.replyValue;
 	const email = req.body.email;
 	console.log(email);
@@ -156,6 +148,15 @@ message_router.post("/reply", async (req, res) => {
 	});
 
 	console.log("Message sent: %s", info.messageId);
+
+	redisClient.del(cacheKey, function (err, response) {
+		if(err){
+			console.log(err);
+			return;
+		}else{
+			console.log(response);
+		}
+	});
 
 	if (info) {
 		await Message.deleteOne({ email: req.body.email });

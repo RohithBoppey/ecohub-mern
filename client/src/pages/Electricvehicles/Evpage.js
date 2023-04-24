@@ -13,7 +13,7 @@ const Evpage = (props) => {
 			<Navbar />
 			<div className="evbody_final">
 				<UpcomingCars />
-				<RegisterFooter />
+				{/* <RegisterFooter /> */}
 			</div>
 		</>
 	);

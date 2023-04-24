@@ -177,7 +177,7 @@ small.justify-content-center {
   position: relative;
   margin: 0 auto;
   padding: 1em 0 4em;
-  max-width: 1000px;
+  max-width:100%;
   list-style: none;
   text-align: center;
 }
@@ -187,11 +187,10 @@ small.justify-content-center {
   position: relative;
   float: left;
   overflow: hidden;
-  margin: 10px 1%;
-  min-width: 320px;
-  max-width: 480px;
-  max-height: 360px;
-  width: 48%;
+  margin: 2px;
+  width: 565px;
+  max-height: 330px;
+
   background: #3085a3;
   text-align: center;
   cursor: pointer;
@@ -264,7 +263,7 @@ small.justify-content-center {
 /*---------------*/
 
 figure.effect-sarah {
-  background: #42b078;
+  background: #000000;
 }
 
 figure.effect-sarah img {
@@ -352,10 +351,11 @@ figure.effect-sarah:hover p {
 }
 
 .evbody_final {
-  background: #97e2aa;
+  background: #071200;
   color: #fff;
   font-weight: 400;
   font-size: 1em;
+  height: 125vh;
   font-family: "Raleway", Arial, sans-serif;
 }
 
@@ -371,7 +371,7 @@ a:focus {
 } */
 
 .section1{
-  padding: 35px;
+  width: 100%;
   padding-left: 150px;
   padding-right: 150px;
   text-align: center;
@@ -379,7 +379,7 @@ a:focus {
 
 .content {
   margin: 0 auto;
-  max-width: 1000px;
+  max-width: 2000px;
 }
 
 .content > h2 {

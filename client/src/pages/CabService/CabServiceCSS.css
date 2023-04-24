@@ -20,7 +20,7 @@
 }
 
 #navbarNav>ul>li:nth-child(n)>a:hover {
-  color: greenyellow;
+  color: rgb(47, 102, 255);
 }
 
 #navbarNav>button {
@@ -49,7 +49,7 @@
 .cabformclass {
   max-width: 1000px;
   width: 100%;
-  background: greenyellow;
+  background: rgb(85, 153, 217);
   padding: 25px 30px;
   border-radius: 10px;
 

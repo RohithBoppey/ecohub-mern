@@ -25,7 +25,7 @@ const ShowUserData = (props) => {
 	};
 
 	const onDeleteHandler = async (id) => {
-		await fetch(`http://localhost:5000/users/${id}`, { method: "DELETE" });
+		await fetch(`https://ecohubserver.azurewebsites.net/users/${id}`, { method: "DELETE" });
 		window.location.reload();
 	};
 

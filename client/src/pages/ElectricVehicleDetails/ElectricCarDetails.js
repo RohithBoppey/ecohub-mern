@@ -18,7 +18,7 @@ const ElectricCarDetails = () => {
 	// get details from backend and set state
 	useEffect(() => {
 		const getDetails = async () => {
-			const allVehicles = await fetch("http://localhost:5000/vehicles/");
+			const allVehicles = await fetch("https://ecohubserver.azurewebsites.net/vehicles/");
 			console.log(allVehicles);
 			const allVehiclesJSON = await allVehicles.json();
 			console.log(allVehiclesJSON);

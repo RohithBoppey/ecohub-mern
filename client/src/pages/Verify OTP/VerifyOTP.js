@@ -29,7 +29,7 @@ const VerifyOTP = () => {
 		const otp = OTPRef.current.value;
 		if (otp.length !== 0) {
 			const response = await fetch(
-				"http://localhost:5000/mailer/verifyotp",
+				"https://ecohubserver.azurewebsites.net/mailer/verifyotp",
 				{
 					method: "POST",
 					headers: {
@@ -44,7 +44,7 @@ const VerifyOTP = () => {
 				alert(
 					"Password has been reset to default password, please change it soon!"
 				);
-				await fetch("http://localhost:5000/users/change-to-default", {
+				await fetch("https://ecohubserver.azurewebsites.net/users/change-to-default", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",

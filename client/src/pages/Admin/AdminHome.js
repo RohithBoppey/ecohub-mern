@@ -7,7 +7,7 @@ const AdminHome = (props) => {
 	const [allMessages, setAllMessages] = useState([]);
 
 	const getAllProducts = async () => {
-		const products = await fetch("http://localhost:5000/products");
+		const products = await fetch("https://ecohubserver.azurewebsites.net/products");
 		let productsJson = await products.json();
 		// console.log(typeof(productsJson));
 		// console.log(productsJson);
@@ -15,13 +15,13 @@ const AdminHome = (props) => {
 	};
 
 	const getAllUsers = async () => {
-		const users = await fetch("http://localhost:5000/users");
+		const users = await fetch("https://ecohubserver.azurewebsites.net/users");
 		let usersJson = await users.json();
 		setAllUsers(usersJson);
 	};
 
 	const getAllMessages = async () => {
-		const messages = await fetch("http://localhost:5000/messages");
+		const messages = await fetch("https://ecohubserver.azurewebsites.net/messages");
 		let messagesJson = await messages.json();
 		// console.log(messagesJson);
 		setAllMessages(messagesJson);

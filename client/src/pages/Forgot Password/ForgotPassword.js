@@ -14,7 +14,7 @@ const ForgotPassword = (props) => {
 		event.preventDefault();
 		const email = useremailRef.current.value;
 		if (email.length !== 0) {
-			await fetch("http://localhost:5000/mailer/getotp", {
+			await fetch("https://ecohubserver.azurewebsites.net/mailer/getotp", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

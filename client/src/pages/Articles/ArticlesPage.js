@@ -30,7 +30,7 @@ export default function ArticlePage() {
 
 	useEffect(() => {
 		const getArticles = async () => {
-			const temp = await fetch("http://localhost:5000/articles");
+			const temp = await fetch("https://ecohubserver.azurewebsites.net/articles");
 			const tempJson = await temp.json();
 			console.log(tempJson.article);
 			setArticles(tempJson.article);

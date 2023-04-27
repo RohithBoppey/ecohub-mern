@@ -88,7 +88,7 @@ app.post("/clear-redis", (req, res) => {
 });
 
 app.get('/', (req, res) => {
-	res.send('Welcome to ECOHUB')
+	res.send('Welcome to ECOHUB!')
 })
 
 /**

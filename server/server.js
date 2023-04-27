@@ -87,6 +87,10 @@ app.post("/clear-redis", (req, res) => {
 	res.sendStatus(200);
 });
 
+app.get('/', (req, res) => {
+	res.send('Welcome to ECOHUB')
+})
+
 /**
  * @swagger
  *  components:

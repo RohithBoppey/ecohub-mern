@@ -7,6 +7,7 @@ on:
   push:
     branches:
       - master
+    paths: ['server/**']
   workflow_dispatch:
 
 jobs:
@@ -31,7 +32,7 @@ jobs:
       with:
         push: true
         tags: ecohubcontainerregistry.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_5b4dba35e5244644af965ef85f93b0e5 }}/server:${{ github.sha }}
-        file: ./Dockerfile
+        file: ./server/Dockerfile
 
   deploy:
     runs-on: ubuntu-latest

@@ -23,7 +23,7 @@ export function Announce() {
 		const announcement = {
 			announcementValue: announcementRef.current.value,
 		};
-		axios.post("https://ecohubserver.azurewebsites.net/admins/announce", announcement);
+		axios.post("https://ecohub-mern-server.onrender.co/admins/announce", announcement);
 		alert('Announcement Posted!');
 		navigate("/admin/home");
 	};

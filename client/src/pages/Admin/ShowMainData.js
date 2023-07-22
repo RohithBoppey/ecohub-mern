@@ -8,7 +8,7 @@ const ShowMainData = (props) => {
 	const [allProducts, setAllProducts] = useState([]);
 
 	const getAllProducts = async () => {
-		const products = await fetch("https://ecohubserver.azurewebsites.net/products");
+		const products = await fetch("https://ecohub-mern-server.onrender.co/products");
 		let productsJson = await products.json();
 		// productsJson = JSON.parse(productsJson);
 		// console.log(typeof(productsJson));
@@ -17,7 +17,7 @@ const ShowMainData = (props) => {
 	};
 
 	const getAllUsers = async () => {
-		const users = await fetch("https://ecohubserver.azurewebsites.net/users");
+		const users = await fetch("https://ecohub-mern-server.onrender.co/users");
 		let usersJson = await users.json();
 		console.log(usersJson);
 		// usersJson = JSON.parse(usersJson);

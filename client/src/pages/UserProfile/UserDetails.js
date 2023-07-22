@@ -21,7 +21,7 @@ const UserDetails = (props) => {
 		}
 		const getUserPhoto = async () => {
 			const response = await Axios.post(
-				"https://ecohubserver.azurewebsites.net/image/sendImage",
+				"https://ecohub-mern-server.onrender.co/image/sendImage",
 				{
 					email: props.user.email,
 				}

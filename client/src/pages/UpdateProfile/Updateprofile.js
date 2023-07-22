@@ -30,7 +30,7 @@ const Updateprofile = (props) => {
 			password: passwordRef.current.value,
 		};
 
-		await axios.post("https://ecohubserver.azurewebsites.net/users/update-profile", details);
+		await axios.post("https://ecohub-mern-server.onrender.co/users/update-profile", details);
 		alert("Successfully updated profile");
 		navigate("/");
 	};

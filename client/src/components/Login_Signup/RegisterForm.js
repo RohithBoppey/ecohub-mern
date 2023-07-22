@@ -33,7 +33,7 @@ const RegisterForm = (props) => {
 			data.append("testImage", file);
 			data.append("email", useremailRef.current.value);
 			console.log(...data);
-			await Axios.post("https://ecohubserver.azurewebsites.net/image/", data);
+			await Axios.post("https://ecohub-mern-server.onrender.co/image/", data);
 		} else {
 			// alert("Please enter a file!");
 		}

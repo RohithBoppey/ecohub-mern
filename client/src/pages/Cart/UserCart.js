@@ -35,7 +35,7 @@ const UserCart = (props) => {
 	const [finalCart, setFinalCart] = useState(cart);
 
 	const getCartDetails = async () => {
-		let temp = await Axios.post("https://ecohubserver.azurewebsites.net/users/get-cart", {
+		let temp = await Axios.post("https://ecohub-mern-server.onrender.co/users/get-cart", {
 			email: userDetails.email,
 		});
 		console.log(temp)
@@ -82,7 +82,7 @@ const UserCart = (props) => {
 		alert(text);
 		dispatch({ type: "clear-cart" });
 		setFinalCart([]);
-		await Axios.post("https://ecohubserver.azurewebsites.net/users/empty-cart", {
+		await Axios.post("https://ecohub-mern-server.onrender.co/users/empty-cart", {
 			user_id: userDetails._id,
 		});
 		navigate("/show-cart");
@@ -90,7 +90,7 @@ const UserCart = (props) => {
 
 	const removeItemFromCart = async (id) => {
 		const response = await Axios.post(
-			"https://ecohubserver.azurewebsites.net/users/remove-from-cart",
+			"https://ecohub-mern-server.onrender.co/users/remove-from-cart",
 			{
 				product_id: id,
 				user_id: userDetails._id,

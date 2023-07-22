@@ -65,7 +65,7 @@ function App() {
 		*/
 
 		// console.log(details);
-		const user = await fetch("https://ecohub-mern-server.onrender.co/users/signin", {
+		const user = await fetch("https://ecohub-mern-server.onrender.com/users/signin", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -99,7 +99,7 @@ function App() {
 		// Same as onSignin.
 
 		console.log(details);
-		const allAdmin = await fetch("https://ecohub-mern-server.onrender.co/admins");
+		const allAdmin = await fetch("https://ecohub-mern-server.onrender.com/admins");
 		const allAdminsJson = await allAdmin.json();
 		// console.log(allUsersJson);
 		const requiredAdmin = allAdminsJson.filter(
@@ -126,7 +126,7 @@ function App() {
 		*/
 
 		// console.log(details);
-		const allUsers = await fetch("https://ecohub-mern-server.onrender.co/users");
+		const allUsers = await fetch("https://ecohub-mern-server.onrender.com/users");
 		const allUsersJson = await allUsers.json();
 
 		const requiredUser = allUsersJson.filter(
@@ -137,7 +137,7 @@ function App() {
 
 		if (requiredUser.length === 0) {
 			// no user exists
-			await fetch("https://ecohub-mern-server.onrender.co/users", {
+			await fetch("https://ecohub-mern-server.onrender.com/users", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -198,7 +198,7 @@ function App() {
 
 			if (useremail !== null && useremail !== undefined) {
 				// console.log(useremail);
-				const allUsers = await fetch("https://ecohub-mern-server.onrender.co/users");
+				const allUsers = await fetch("https://ecohub-mern-server.onrender.com/users");
 				const allUsersJson = await allUsers.json();
 				// console.log(allUsersJson)
 				const requiredUser = allUsersJson.filter(
@@ -214,7 +214,7 @@ function App() {
 
 			if (adminLogin !== null && adminLogin !== undefined) {
 				// console.log(useremail);
-				const allAdmin = await fetch("https://ecohub-mern-server.onrender.co/admins");
+				const allAdmin = await fetch("https://ecohub-mern-server.onrender.com/admins");
 				const temp = await allAdmin.json();
 				// console.log(temp);
 				// console.log(typeof(temp));
@@ -228,12 +228,12 @@ function App() {
 		};
 
 		const getAllElectricProducts = async () => {
-			const result = await fetch("https://ecohub-mern-server.onrender.co/products");
+			const result = await fetch("https://ecohub-mern-server.onrender.com/products");
 			let resultJSON = await result.json();
 			setAllProducts(resultJSON);
 		};
 		const getAllElectricVehicles = async () => {
-			const values = await fetch("https://ecohub-mern-server.onrender.co/products");
+			const values = await fetch("https://ecohub-mern-server.onrender.com/products");
 			const valuesJSON = await values.json();
 			setAllvehicles(valuesJSON);
 		};

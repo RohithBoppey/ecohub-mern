@@ -10,7 +10,7 @@ const UpcomingCars = () => {
 
 	useEffect(() => {
 		const getAllvehicles = async () => {
-			const temp = await fetch("https://ecohub-mern-server.onrender.co/allvehicles/");
+			const temp = await fetch("https://ecohub-mern-server.onrender.com/allvehicles/");
 			const tempJson = await temp.json();
 			console.log(tempJson);
 			setAllvehicles(tempJson);

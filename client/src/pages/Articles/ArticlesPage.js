@@ -30,7 +30,7 @@ export default function ArticlePage() {
 
 	useEffect(() => {
 		const getArticles = async () => {
-			const articles = await fetch("https://ecohub-mern-server.onrender.co/articles");
+			const articles = await fetch("https://ecohub-mern-server.onrender.com/articles");
 			const articlesJson = await articles.json();
 			console.log(articlesJson);
 			setArticles(articlesJson);

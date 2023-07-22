@@ -10,7 +10,7 @@ const ShowAllMessages = (props) => {
 		1. Fetch all messages from json-server.
 	*/
 	const getAllMessages = async () => {
-		const messages = await fetch("https://ecohub-mern-server.onrender.co/messages");
+		const messages = await fetch("https://ecohub-mern-server.onrender.com/messages");
 		let messagesJson = await messages.json();
 		// messagesJson = JSON.parse(messagesJson);
 		console.log(messagesJson);
@@ -18,12 +18,12 @@ const ShowAllMessages = (props) => {
 	};
 
 	const onRemoveMessage = async (id) => {
-		await fetch(`https://ecohub-mern-server.onrender.co/messages/${id}`, {
+		await fetch(`https://ecohub-mern-server.onrender.com/messages/${id}`, {
 			method: "DELETE",
 		});
 		console.log("removed");
 		window.location.reload("/admin/messages");
-		await axios.post(`https://ecohub-mern-server.onrender.co/clear-redis`, {key: ''})
+		await axios.post(`https://ecohub-mern-server.onrender.com/clear-redis`, {key: ''})
 	};
 
 	// as soon as page renders, execute this.

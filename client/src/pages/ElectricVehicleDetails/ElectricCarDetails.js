@@ -18,7 +18,7 @@ const ElectricCarDetails = () => {
 	// get details from backend and set state
 	useEffect(() => {
 		const getDetails = async () => {
-			const allVehicles = await fetch("https://ecohub-mern-server.onrender.co/vehicles/");
+			const allVehicles = await fetch("https://ecohub-mern-server.onrender.com/vehicles/");
 			console.log(allVehicles);
 			const allVehiclesJSON = await allVehicles.json();
 			console.log(allVehiclesJSON);

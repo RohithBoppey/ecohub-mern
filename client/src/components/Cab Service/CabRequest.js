@@ -55,7 +55,7 @@ const Cabrequest = () => {
 			"Booking has been done, Please check your email for confirmation of booking"
 		);
 		await axios.post(
-			"https://ecohub-mern-server.onrender.co/cabservice/new-request",
+			"https://ecohub-mern-server.onrender.com/cabservice/new-request",
 			{
 				userDetails: userDetails,
 				bookingDetails: details,

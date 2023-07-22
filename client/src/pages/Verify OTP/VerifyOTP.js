@@ -29,7 +29,7 @@ const VerifyOTP = () => {
 		const otp = OTPRef.current.value;
 		if (otp.length !== 0) {
 			const response = await fetch(
-				"https://ecohub-mern-server.onrender.co/mailer/verifyotp",
+				"https://ecohub-mern-server.onrender.com/mailer/verifyotp",
 				{
 					method: "POST",
 					headers: {
@@ -44,7 +44,7 @@ const VerifyOTP = () => {
 				alert(
 					"Password has been reset to default password, please change it soon!"
 				);
-				await fetch("https://ecohub-mern-server.onrender.co/users/change-to-default", {
+				await fetch("https://ecohub-mern-server.onrender.com/users/change-to-default", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",

@@ -23,7 +23,7 @@ const ElectricProductsPage = (props) => {
 		// });
 		console.log(userDetails);
 		const response = await Axios.post(
-			"https://ecohub-mern-server.onrender.co/users/add-to-cart",
+			"https://ecohub-mern-server.onrender.com/users/add-to-cart",
 			{
 				email: userDetails.email,
 				product_id: object._id,

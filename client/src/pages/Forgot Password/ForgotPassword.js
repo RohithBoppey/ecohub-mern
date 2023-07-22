@@ -14,7 +14,7 @@ const ForgotPassword = (props) => {
 		event.preventDefault();
 		const email = useremailRef.current.value;
 		if (email.length !== 0) {
-			await fetch("https://ecohub-mern-server.onrender.co/mailer/getotp", {
+			await fetch("https://ecohub-mern-server.onrender.com/mailer/getotp", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

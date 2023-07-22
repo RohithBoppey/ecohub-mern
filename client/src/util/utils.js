@@ -5,7 +5,7 @@
 export const sendMessageToAdmin = async (messageDetails) => {
 	let flag = false;
 	// console.log(messageDetails);
-	const allMessages = await fetch("https://ecohub-mern-server.onrender.co/messages");
+	const allMessages = await fetch("https://ecohub-mern-server.onrender.com/messages");
 	const allMessagesJson = await allMessages.json();
 	console.log(allMessagesJson);
 	allMessagesJson.forEach((message) => {
@@ -22,7 +22,7 @@ export const sendMessageToAdmin = async (messageDetails) => {
 	});
 
 	if (flag === false) {
-		await fetch("https://ecohub-mern-server.onrender.co/messages", {
+		await fetch("https://ecohub-mern-server.onrender.com/messages", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

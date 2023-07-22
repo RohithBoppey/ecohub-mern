@@ -25,7 +25,7 @@ const ShowUserData = (props) => {
 	};
 
 	const onDeleteHandler = async (id) => {
-		await fetch(`https://ecohub-mern-server.onrender.co/users/${id}`, { method: "DELETE" });
+		await fetch(`https://ecohub-mern-server.onrender.com/users/${id}`, { method: "DELETE" });
 		window.location.reload();
 	};
 

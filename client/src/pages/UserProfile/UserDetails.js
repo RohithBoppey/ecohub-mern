@@ -21,7 +21,7 @@ const UserDetails = (props) => {
 		}
 		const getUserPhoto = async () => {
 			const response = await Axios.post(
-				"https://ecohub-mern-server.onrender.co/image/sendImage",
+				"https://ecohub-mern-server.onrender.com/image/sendImage",
 				{
 					email: props.user.email,
 				}

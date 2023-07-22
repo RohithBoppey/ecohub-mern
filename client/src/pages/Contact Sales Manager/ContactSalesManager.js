@@ -25,7 +25,8 @@ const ContactSalesManager = (props) => {
 		};
 
 		// sending the details to backend admin messages
-		sendMessageToAdmin(details);
+		console.log("message");
+		await sendMessageToAdmin(details);
 		alert("Message sent");
 		navigate("/");
 	};
